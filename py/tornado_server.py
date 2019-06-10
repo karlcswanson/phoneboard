@@ -37,23 +37,10 @@ class SocketHandler(websocket.WebSocketHandler):
     @classmethod
     def ws_dump(cls):
         out = {}
-        if shure.chart_update_list:
-            out['chart-update'] = shure.chart_update_list
-
-        if shure.data_update_list:
-            out['data-update'] = []
-            for ch in shure.data_update_list:
-                out['data-update'].append(ch.ch_json_mini())
-
-        if config.group_update_list:
-            out['group-update'] = config.group_update_list
 
         if out:
             data = json.dumps(out)
             cls.broadcast(data)
-        del shure.chart_update_list[:]
-        del shure.data_update_list[:]
-        del config.group_update_list[:]
 
 
 def twisted():
