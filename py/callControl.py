@@ -31,7 +31,8 @@ def gatherDigits(to,digit):
             mp3 = "http://twilio.willowcreek.org/mp3/{}.mp3".format("Live" + languages[digit])
         else:
             mp3 = "http://twilio.willowcreek.org/mp3/{}.mp3".format("Delayed" + languages[digit])
-        #This will generate the wait URL
+        #This will generate the wait URL, the function is conferenceOnHold
+        #After looking at this, I dont think we need it actually...
         if to == "+18445051150":
             waitUrl = "http://twilio.willowcreek.org/wait/{}".format(languages[digit]).lower() #This URL will be different
         else:
@@ -59,5 +60,9 @@ def gatherDigits(to,digit):
 
         return response
 
+def conferenceOnHold():
+    response = VoiceResponse()
+    response.play("http://twilio.willowcreek.org/Hold.mp3", loop=0)
+    return response
 
-print(gatherDigits("+18445051151", 6))
+print(conferenceOnHold())
