@@ -5,14 +5,14 @@ languages = {1: "Spanish", 2: "Chinese", 3: "Korean", 4: "French"} #We should mo
 
 #These paramaters come from the arguments within a GET request: To, Digits, From
 
-def initialCall(to, isLive, isDelayLive):
-    if to == "+18445051150" and isLive == True: #If calling live number and is live
+def initialCall(To, isLive, isDelayLive):
+    if To == "+18445051150" and isLive == True: #If calling live number and is live
         response = VoiceResponse()
         gather = Gather(action="/gatherDigit", method="GET", num_digits=1, timeout=30)
         gather.play('http://twilio.willowcreek.org/mp3/LiveList.mp3')
         response.append(gather)
         return response
-    elif to == "+18445051151" and isDelayLive == True: #If calling delayed number and is delay live
+    elif To == "+18445051151" and isDelayLive == True: #If calling delayed number and is delay live
         response = VoiceResponse()
         gather = Gather(action="/gatherDigit", method="GET", num_digits=1, timeout=30)
         gather.play('http://twilio.willowcreek.org/mp3/DelayedList.mp3')
@@ -24,25 +24,25 @@ def initialCall(to, isLive, isDelayLive):
         
         return response
 
-def gatherDigits(to,digit):
+def gatherDigits(To,Digit):
     #If they pressed a correct option
     try:
         #This if statement generates the MP3 announement file on the fly so we can avoid having to build a seperate dictionary
-        if to == "+18445051150": #These numbers need to be moved to the config file
-            mp3 = "http://twilio.willowcreek.org/mp3/{}.mp3".format("Live" + languages[digit])
+        if To == "+18445051150": #These numbers need to be moved to the config file
+            mp3 = "http://twilio.willowcreek.org/mp3/{}.mp3".format("Live" + languages[Digit])
         else:
-            mp3 = "http://twilio.willowcreek.org/mp3/{}.mp3".format("Delayed" + languages[digit])
+            mp3 = "http://twilio.willowcreek.org/mp3/{}.mp3".format("Delayed" + languages[Digit])
         #This will generate the wait URL, the function is conferenceOnHold
         #After looking at this, I dont think we need it actually...
-        if to == "+18445051150":
-            waitUrl = "http://twilio.willowcreek.org/wait/{}".format(languages[digit]).lower() #This URL will be different
+        if To == "+18445051150":
+            waitUrl = "http://twilio.willowcreek.org/wait/{}".format(languages[Digit]).lower() #This URL will be different
         else:
-            waitUrl = "http://twilio.willowcreek.org/wait/{}delay".format(languages[digit]).lower() #This URL will be different
+            waitUrl = "http://twilio.willowcreek.org/wait/{}delay".format(languages[Digit]).lower() #This URL will be different
         # And finally the conference name
-        if to == "+18445051150":
-            conferenceName = languages[digit]
+        if To == "+18445051150":
+            conferenceName = languages[Digit]
         else:
-            conferenceName = "{}delay".format(languages[digit])
+            conferenceName = "{}delay".format(languages[Digit])
 
         #Build TWIML
         response = VoiceResponse()
