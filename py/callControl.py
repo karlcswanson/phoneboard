@@ -93,6 +93,3 @@ def codecConference(From):
     response.append(dial)
 
     return response
-
-
-print(codecConference("sip:blah@blah.com"))
