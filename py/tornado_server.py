@@ -6,13 +6,11 @@ import logging
 
 from tornado import websocket, web, ioloop, escape
 
-
+import config
 
 class IndexHandler(web.RequestHandler):
     def get(self):
-        self.render("index.html")
-
-
+        self.render(config.app_dir("index.html"))
 
 class SocketHandler(websocket.WebSocketHandler):
     clients = set()
@@ -46,7 +44,7 @@ class SocketHandler(websocket.WebSocketHandler):
 def twisted():
     app = web.Application([
         (r'/', IndexHandler),
-        (r'/static/(.*)', web.StaticFileHandler, {'path': 'static'})
+        (r'/static/(.*)', web.StaticFileHandler, {'path': config.app_dir('static')})
     ])
     # https://github.com/tornadoweb/tornado/issues/2308
     asyncio.set_event_loop(asyncio.new_event_loop())
