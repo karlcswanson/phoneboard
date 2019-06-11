@@ -1,8 +1,9 @@
 from twilio.twiml.voice_response import VoiceResponse, Say, Gather, Play, Dial
+from re import match
 
 languages = {1: "Spanish", 2: "Chinese", 3: "Korean", 4: "French"} #We should move this to the config file
 
-#These paramaters come from the arguments within a GET request: To, Digits
+#These paramaters come from the arguments within a GET request: To, Digits, From
 
 def initialCall(to, isLive, isDelayLive):
     if to == "+18445051150" and isLive == True: #If calling live number and is live
@@ -65,4 +66,16 @@ def conferenceOnHold():
     response.play("http://twilio.willowcreek.org/Hold.mp3", loop=0)
     return response
 
-print(conferenceOnHold())
+def codecConference(From):
+    conferenceName = match("sip:(.*)@.*", From).group(1)
+
+    response = VoiceResponse()
+    dial = Dial()
+    dial.conference(muted=False, beep=False, end_conference_on_exit=False, start_conference_on_enter=True, max_participants=250, trim="do_not_trim", name=conferenceName)
+    response.append(dial)
+
+    return response
+
+
+
+print(codecConference("sip:blah@blah.com"))
