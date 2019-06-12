@@ -124,9 +124,9 @@ def read_json_config(file):
     with open(file) as config_file:
         config_tree = json.load(config_file)
 
-        for chan in config_tree['slots']:
+        for chan in config_tree['codecs']:
             codec = jk_audio.check_add_codec(chan['ip'])
-            codec.add_channel(chan)
+            codec.add_channels(chan)
             print(chan)
 
     config_tree['phoneboard_version'] = get_version_number()
