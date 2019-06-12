@@ -17,5 +17,15 @@ def check_add_codec(ip):
     audio_codecs.append(net)
     return net
 
-def Codec_Service():
-    print('codecs!')
+def codec_query_service():
+    while True:
+        for codec in audio_codecs:
+            for channel in codec.channels:
+                channel.get_hook_status()
+        time.sleep(1)
+
+def codec_vu_service():
+    while True:
+        for codec in audio_codecs:
+            codec.get_vu()
+        time.sleep(.3)

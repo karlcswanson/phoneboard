@@ -7,10 +7,25 @@ import logging
 from tornado import websocket, web, ioloop, escape
 
 import config
+import jk_audio
 
 class IndexHandler(web.RequestHandler):
     def get(self):
         self.render(config.app_dir("index.html"))
+
+class JsonHandler(web.RequestHandler):
+    def get(self):
+        codecs = []
+        for codec in jk_audio.audio_codecs:
+            codecs.append(codec.codec_json())
+
+        json_out = json.dumps({
+            'config': config.config_tree, 'codecs': codecs
+        })
+
+
+        self.set_header('Content-Type', 'application/json')
+        self.write(json_out)
 
 class SocketHandler(websocket.WebSocketHandler):
     clients = set()
@@ -44,6 +59,7 @@ class SocketHandler(websocket.WebSocketHandler):
 def twisted():
     app = web.Application([
         (r'/', IndexHandler),
+        (r'/data', JsonHandler),
         (r'/static/(.*)', web.StaticFileHandler, {'path': config.app_dir('static')})
     ])
     # https://github.com/tornadoweb/tornado/issues/2308
