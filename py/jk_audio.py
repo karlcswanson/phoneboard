@@ -17,6 +17,13 @@ def check_add_codec(ip):
     audio_codecs.append(net)
     return net
 
+def get_channel_by_slot(slot):
+    for codec in audio_codecs:
+        for channel in codec.channels:
+            if channel.slot == slot:
+                return channel
+    return None
+
 def codec_query_service():
     while True:
         for codec in audio_codecs:

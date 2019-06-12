@@ -6,6 +6,7 @@ import logging.handlers
 import argparse
 
 import jk_audio
+import groups
 
 APPNAME = 'phoneboard'
 
@@ -128,6 +129,8 @@ def read_json_config(file):
             codec = jk_audio.check_add_codec(chan['ip'])
             codec.add_channels(chan)
             print(chan)
+        for group in config_tree['groups']:
+            groups.codec_groups.append(groups.Group(group))
 
     config_tree['phoneboard_version'] = get_version_number()
 

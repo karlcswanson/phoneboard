@@ -8,6 +8,7 @@ from tornado import websocket, web, ioloop, escape
 
 import config
 import jk_audio
+import groups
 
 class IndexHandler(web.RequestHandler):
     def get(self):
@@ -21,7 +22,7 @@ class JsonHandler(web.RequestHandler):
 
         json_out = json.dumps({
             'config': config.config_tree, 'codecs': codecs
-        })
+        }, sort_keys=True, indent=4)
 
 
         self.set_header('Content-Type', 'application/json')
@@ -56,10 +57,56 @@ class SocketHandler(websocket.WebSocketHandler):
             cls.broadcast(data)
 
 
+class ChannelAPIHandler(web.RequestHandler):
+    def get(self, slot):
+        json_out = {}
+        ch = jk_audio.get_channel_by_slot(int(slot))
+        if ch:
+            json_out = ch.ch_json()
+        self.set_header('Content-Type', 'application/json')
+        self.write(json_out)
+
+    def post(self, slot):
+        json_out = {}
+        ch = jk_audio.get_channel_by_slot(int(slot))
+        cmd = self.get_argument("cmd", default=None, strip=False)
+        if ch:
+            if cmd == 'call':
+                ch.call()
+            if cmd == 'drop':
+                ch.drop()
+
+        self.set_header('Content-Type', 'application/json')
+        self.write(json_out)
+
+class GroupAPIHandler(web.RequestHandler):
+    def get(self, group_number):
+        json_out = {}
+        group = groups.get_group(int(group_number))
+        if group:
+            json_out = group.group_json()
+        self.set_header('Content-Type', 'application/json')
+        self.write(json_out)
+
+    def post(self, group_number):
+        json_out = {}
+        group = groups.get_group(int(group_number))
+        cmd = self.get_argument("cmd", default=None, strip=False)
+        if group:
+            if cmd == 'call':
+                group.call()
+            if cmd == 'drop':
+                group.drop()
+
+        self.set_header('Content-Type', 'application/json')
+        self.write(json_out)
+
 def twisted():
     app = web.Application([
         (r'/', IndexHandler),
         (r'/data', JsonHandler),
+        (r'/api/channel/([0-9]+)', ChannelAPIHandler),
+        (r'/api/group/([0-9]+)', GroupAPIHandler),
         (r'/static/(.*)', web.StaticFileHandler, {'path': config.app_dir('static')})
     ])
     # https://github.com/tornadoweb/tornado/issues/2308
