@@ -10,25 +10,25 @@ languages = {1: "Spanish", 2: "Chinese", 3: "Korean",
 def initialCall(To, isLive, isDelayLive):
     if To == "+18445051150" and isLive == True:  # If calling live number and is live
         response = VoiceResponse()
-        gather = Gather(action="/gatherDigit", method="GET",
+        gather = Gather(action="/conference/gatherDigit", method="GET",
                         num_digits=1, timeout=30)
         gather.play('http://twilio.willowcreek.org/mp3/LiveList.mp3')
         response.append(gather)
-        return response
+        return str(response)
     elif To == "+18445051151" and isDelayLive == True:  # If calling delayed number and is delay live
         response = VoiceResponse()
-        gather = Gather(action="/gatherDigit", method="GET",
+        gather = Gather(action="/conference/gatherDigit", method="GET",
                         num_digits=1, timeout=30)
         gather.play('http://twilio.willowcreek.org/mp3/DelayedList.mp3')
         response.append(gather)
-        return response
+        return str(response)
     else:
         response = VoiceResponse()
         response.say(
             'The language interpretation lines for the GLS are not yet open. \
             Please call back 15 minutes prior to the next session')
 
-        return response
+        return str(response)
 
 
 def gatherDigits(To, Digit):
@@ -66,21 +66,21 @@ def gatherDigits(To, Digit):
                         max_participants=250, trim="do_not_trim", wait_url=waitUrl, name=conferenceName)
         response.append(dial)
 
-        return response
+        return str(response)
     except KeyError:
         pass
         response = VoiceResponse()
         response.say("That is not a valid option")
         # this should take you back to the first URL and function initialCall
-        response.redirect("/hello")
+        response.redirect("/conference/join")
 
-        return response
+        return str(response)
 
 
 def conferenceOnHold():
     response = VoiceResponse()
     response.play("http://twilio.willowcreek.org/Hold.mp3", loop=0)
-    return response
+    return str(response)
 
 
 def codecConference(From):
@@ -92,4 +92,7 @@ def codecConference(From):
                     start_conference_on_enter=False, max_participants=250, trim="do_not_trim", name=conferenceName)
     response.append(dial)
 
-    return response
+    return str(response)
+
+def foo():
+    return "bar"
