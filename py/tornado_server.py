@@ -70,11 +70,19 @@ class ChannelAPIHandler(web.RequestHandler):
         json_out = {}
         ch = jk_audio.get_channel_by_slot(int(slot))
         cmd = self.get_argument("cmd", default=None, strip=False)
+        studio_light = self.get_argument("studio_light", default=None, strip=False)
         if ch:
             if cmd == 'call':
                 ch.call()
             if cmd == 'drop':
                 ch.drop()
+
+            if studio_light == 'disabled':
+                ch.set_studio_light('DISABLED')
+            if studio_light == 'off-air':
+                ch.set_studio_light('OFF-AIR')
+            if studio_light == 'on-air':
+                ch.set_studio_light('ON-AIR')
 
         self.set_header('Content-Type', 'application/json')
         self.write(json_out)
@@ -92,11 +100,19 @@ class GroupAPIHandler(web.RequestHandler):
         json_out = {}
         group = groups.get_group(int(group_number))
         cmd = self.get_argument("cmd", default=None, strip=False)
+        studio_light = self.get_argument("studio_light", default=None, strip=False)
         if group:
             if cmd == 'call':
                 group.call()
             if cmd == 'drop':
                 group.drop()
+
+            if studio_light == 'disabled':
+                group.set_studio_light('DISABLED')
+            if studio_light == 'off-air':
+                group.set_studio_light('OFF-AIR')
+            if studio_light == 'on-air':
+                group.set_studio_light('ON-AIR')
 
         self.set_header('Content-Type', 'application/json')
         self.write(json_out)

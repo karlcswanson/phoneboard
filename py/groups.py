@@ -30,6 +30,9 @@ class Group:
         for channel in self.channels:
             channel.drop()
 
+    def set_studio_light(self, mode):
+        for channel in self.channels:
+            channel.set_studio_light(mode)
 
 def get_group(group_number):
     for group in codec_groups:

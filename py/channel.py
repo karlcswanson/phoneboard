@@ -15,7 +15,12 @@ class Channel:
         self.hook_status = 'DISCONNECTED'
         self.call_start = time.time() - 60
         self.vu = 0
-        self.studio_light = 'OFF_AIR'
+        self.studio_light = 'DISABLED'
+
+
+    def set_studio_light(self, mode):
+        if mode in ['DISABLED', 'OFF-AIR', 'ON-AIR']:
+            self.studio_light = mode
 
 
     def set_hook_status(self, status):
@@ -34,14 +39,15 @@ class Channel:
     def get_hook_status(self):
         path = '/ve/channel/ahStatus?ch=' + self.channel
         out = self.codec.load_json(path)
-        if out['oh'] == 1:
-            self.set_hook_status('CONNECTED')
-        elif out['oh'] == 4:
-            self.set_hook_status('DIALING')
-        else:
-            self.set_hook_status('DISCONNECTED')
+        if out:
+            if out['oh'] == 1:
+                self.set_hook_status('CONNECTED')
+            elif out['oh'] == 4:
+                self.set_hook_status('DIALING')
+            else:
+                self.set_hook_status('DISCONNECTED')
 
-        self.timestamp = time.time()
+            self.timestamp = time.time()
 
 
     def call(self):
@@ -68,5 +74,6 @@ class Channel:
     def ch_json(self):
         return {
             'name': self.name, 'status': self.hook_status, 'slot': self.slot,
-            'vu': self.vu, 'call_time': self.call_time()
+            'vu': self.vu, 'call_time': self.call_time(),
+            'studio_light': self.studio_light
         }

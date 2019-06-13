@@ -35,11 +35,11 @@ class Codec:
         req = urllib.request.Request(url)
 
         req.add_header('authorization','Basic {}'.format(self.auth_token()))
-        resp = urllib.request.urlopen(req)
-        if resp.getcode() == 200:
-            return json.loads(resp.read())
-
-        else:
+        try:
+            resp = urllib.request.urlopen(req)
+            if resp.getcode() == 200:
+                return json.loads(resp.read())
+        except:
             logging.warning('URL did not return 200')
             return None
 

@@ -29,7 +29,13 @@ def codec_query_service():
         for codec in audio_codecs:
             for channel in codec.channels:
                 channel.get_hook_status()
+                if channel.studio_light == 'ON-AIR' and channel.hook_status == 'DISCONNECTED':
+                    channel.call()
+                if channel.studio_light == 'OFF-AIR' and channel.hook_status == 'CONNECTED':
+                    channel.drop()
         time.sleep(1)
+
+
 
 def codec_vu_service():
     while True:
