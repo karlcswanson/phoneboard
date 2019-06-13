@@ -10,9 +10,9 @@ class Channel:
         self.name = cfg['name']
         self.channel = cfg['channel']
         self.uri = cfg['uri']
-        self.timestamp = time.time() - 60
+        self.hook_tstamp = time.time() - 60
         self.slot = cfg['slot']
-        self.hook_status = 'DISCONNECTED'
+        self.hook_status = 'UNKNOWN'
         self.call_start = time.time() - 60
         self.vu = 0
         self.studio_light = 'DISABLED'
@@ -36,7 +36,7 @@ class Channel:
 
         logging.info('{} is {}'.format(self.name, self.hook_status))
 
-    def get_hook_status(self):
+    def get_hook_status_from_codec(self):
         path = '/ve/channel/ahStatus?ch=' + self.channel
         out = self.codec.load_json(path)
         if out:
@@ -47,8 +47,12 @@ class Channel:
             else:
                 self.set_hook_status('DISCONNECTED')
 
-            self.timestamp = time.time()
+            self.hook_tstamp = time.time()
 
+    def channel_status(self):
+        if (time.time() - self.hook_tstamp) < 4:
+            return self.hook_status
+        return 'UNKNOWN'
 
     def call(self):
         path = '/ve/channel/call?ch={}&uri={}'.format(self.channel, self.uri)
@@ -73,7 +77,7 @@ class Channel:
 
     def ch_json(self):
         return {
-            'name': self.name, 'status': self.hook_status, 'slot': self.slot,
-            'vu': self.vu, 'call_time': self.call_time(),
+            'name': self.name, 'status': self.channel_status(),
+            'slot': self.slot, 'vu': self.vu, 'call_time': self.call_time(),
             'studio_light': self.studio_light
         }
