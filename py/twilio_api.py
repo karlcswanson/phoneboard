@@ -77,12 +77,12 @@ class ConferenceRoom:
 def twilio_query_service():
     while True:
         global conference_list
-        conference_list = []
+        c_list = []
         conferences = conn.active_conferences()
         for conference in conferences:
-            conference_list.append(ConferenceRoom(conference))
+            c_list.append(ConferenceRoom(conference))
 
-
+        conference_list = c_list
         for c in conference_list:
             print(c.conference_json())
 
