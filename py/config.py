@@ -7,6 +7,7 @@ import argparse
 
 import jk_audio
 import groups
+import twilio_api
 
 APPNAME = 'phoneboard'
 
@@ -111,6 +112,7 @@ def config():
     args = parse_args()
     logging_init()
     read_json_config(config_file())
+    twilio_api.twilio_setup()
     logging.info('Starting Phoneboard {}'.format(config_tree['phoneboard_version']))
 
 

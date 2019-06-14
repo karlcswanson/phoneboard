@@ -4,11 +4,13 @@ import asyncio
 import socket
 import logging
 
+
 from tornado import websocket, web, ioloop, escape
 
 import config
 import jk_audio
 import groups
+import twilio_api
 
 class IndexHandler(web.RequestHandler):
     def get(self):
@@ -87,6 +89,21 @@ class ChannelAPIHandler(web.RequestHandler):
         self.set_header('Content-Type', 'application/json')
         self.write(json_out)
 
+class ConferenceAPIHandler(web.RequestHandler):
+    def get(self):
+        active_conferences = []
+        for conference in twilio_api.conference_list:
+            active_conferences.append(conference.conference_json())
+
+        json_out = json.dumps({
+            'conferences': active_conferences
+        }, sort_keys=True, indent=4)
+
+        self.set_header('Content-Type', 'application/json')
+        self.write(json_out)
+
+
+
 class GroupAPIHandler(web.RequestHandler):
     def get(self, group_number):
         json_out = {}
@@ -123,6 +140,7 @@ def twisted():
         (r'/data', JsonHandler),
         (r'/api/channel/([0-9]+)', ChannelAPIHandler),
         (r'/api/group/([0-9]+)', GroupAPIHandler),
+        (r'/api/conference/', ConferenceAPIHandler),
         (r'/static/(.*)', web.StaticFileHandler, {'path': config.app_dir('static')})
     ])
     # https://github.com/tornadoweb/tornado/issues/2308

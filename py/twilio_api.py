@@ -1,9 +1,16 @@
-
+import time
+from datetime import datetime
 
 from twilio.rest import Client
 from twilio.rest.api.v2010.account.conference import ConferenceInstance
 
 import config
+
+TWILIO_TIMEOUT = 10
+
+conn = []
+
+conference_list = []
 
 
 class TwilioConnection:
@@ -13,53 +20,84 @@ class TwilioConnection:
 
         self.client = Client(account_sid, auth_token)
 
-    def open_conferences(self):
-        conference_list = []
+    def active_conferences(self):
+        active_conference_list = []
 
         for conference in self.client.conferences.list(limit=20):
             if conference.status in ['init', 'in-progress']:
-                conference_list.append(conference)
+                active_conference_list.append(conference)
 
-        return conference_list
-
-
+        return active_conference_list
 
 
-# ConferenceInstance methods
-def close(self):
-    self.update(status = 'completed')
+class ConferenceRoom:
+    def __init__(self, conference):
+        self.conference = conference
+        participants = conference.participants.list()
 
-def call_count(self):
-    return len(self.participants.list())
+        self.codec_status = 'DISCONNECTED'
+        for p in participants:
+            if p.muted == False:
+                self.codec_status = 'CONNECTED'
+                self.call_count = len(participants) - 1
 
-def codec_in_conference(self):
-    for p in self.participants.list():
-        if p.muted == False:
-            return True
-    return False
-
-
-
-
-
-def main():
-    ConferenceInstance.close = close
-    ConferenceInstance.call_count = call_count
-    ConferenceInstance.codec_in_conference = codec_in_conference
+        if self.codec_status == 'CONNECTED':
+            self.call_count = len(participants) - 1
+        else:
+            self.call_count = len(participants)
 
 
-    config.config()
+        self.call_start = datetime.timestamp(conference.date_created)
+        self.name = conference.friendly_name
+        self.timestamp = time.time()
+
+
+    def call_time(self):
+        if self.codec_status == 'CONNECTED':
+            delta = time.time() - self.call_start
+            return time.strftime('%H:%M:%S', time.gmtime(delta))
+
+        return '--:--:--'
+
+    def close_room(self):
+        self.conference.update(status='completed')
+
+    def status(self):
+        if (time.time() - self.timestamp) < TWILIO_TIMEOUT:
+            return self.codec_status
+        return 'UNKNOWN'
+
+    def conference_json(self):
+        return {
+            'name': self.name, 'status': self.status(),
+            'call_count': self.call_count, 'call_time': self.call_time()
+        }
+
+
+def twilio_query_service():
+    while True:
+        global conference_list
+        conference_list = []
+        conferences = conn.active_conferences()
+        for conference in conferences:
+            conference_list.append(ConferenceRoom(conference))
+
+
+        for c in conference_list:
+            print(c.conference_json())
+
+        time.sleep(5)
+
+
+def twilio_setup():
+    global conn
     conn = TwilioConnection()
 
-    conferences = conn.open_conferences()
+def main():
+    config.config()
+    twilio_setup()
 
-    for i in conferences:
-        print('Conference: {}, participants {}'.format(i.friendly_name, i.call_count()))
-        if i.codec_in_conference():
-            print('Codec Is Live')
-            # i.close()
-        else:
-            print('Codec Is off')
+    twilio_query_service()
 
 
 
