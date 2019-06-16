@@ -1,7 +1,7 @@
 import time
 
 from codec import Codec
-
+import influxdb_api
 
 audio_codecs = []
 
@@ -33,6 +33,9 @@ def codec_query_service():
                     channel.call()
                 if channel.studio_light == 'OFF-AIR' and channel.hook_status == 'CONNECTED':
                     channel.drop()
+
+                influxdb_api.influx_send_channel(channel)
+
         time.sleep(1)
 
 

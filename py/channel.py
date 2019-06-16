@@ -1,6 +1,8 @@
 import time
 import logging
 
+
+import twilio_api
 import codec
 
 
@@ -75,9 +77,17 @@ class Channel:
 
         return '--:--:--'
 
+    def twilio_conference(self):
+        print("LOOKING FOR: {}".format(self.name))
+        conf = twilio_api.get_conference_by_name(self.name)
+        if conf:
+            return conf.conference_json()
+        return {}
+
+
     def ch_json(self):
         return {
             'name': self.name, 'status': self.channel_status(),
             'slot': self.slot, 'vu': self.vu, 'call_time': self.call_time(),
-            'studio_light': self.studio_light
+            'studio_light': self.studio_light, 'conf' : self.twilio_conference()
         }
