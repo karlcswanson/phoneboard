@@ -3,7 +3,7 @@ import time
 from influxdb import InfluxDBClient
 
 import config
-
+import twilio_api
 
 VALUE_MAP_STATE = {
     'DISCONNECTED' : 0,
@@ -20,6 +20,9 @@ VALUE_MAP_STUDIO = {
 
 
 def influx_send_channel(channel):
+    conf = twilio_api.get_conference_by_name(channel.name)
+
+
     json_body = [
         {
             "measurement": "codec_status",
@@ -29,32 +32,31 @@ def influx_send_channel(channel):
             # "time": channel.hook_tstamp,
             "fields": {
                 "codec_status": VALUE_MAP_STATE[channel.channel_status()],
-                "studio_light": channel.studio_light,
+                "studio_light": VALUE_MAP_STUDIO[channel.studio_light],
                 "vu": channel.vu,
-                "call_start": channel.call_start
+                "call_start": channel.call_time(),
+                "combined_status": VALUE_MAP_STATE[channel.combined_status()]
             }
         }
     ]
 
-    client.write_points(json_body)
-
-def influx_send_twilio(conference):
-    json_body = [
-        {
-            "measurement": "twilio_status",
-            "tags": {
-                "name": conference.name,
-            },
-            # "time": channel.hook_tstamp,
-            "fields": {
-                "codec_status": VALUE_MAP_STATE[conference.status()],
-                "call_count": conference.call_count
-            }
+    if conf:
+        conf_data = {
+            "conf_status": conf.status(),
+            "conf_time": conf.call_time(),
+            "conf_name": conf.name,
+            "conf_count": conf.call_count
         }
-    ]
+    else:
+        conf_data = {
+            "conf_status": 'NOCONF',
+            "conf_time": '--:--:--',
+            "conf_name": '',
+            "conf_count": 0
+        }
+    json_body[0]['fields'].update(conf_data)
 
     client.write_points(json_body)
-
 
 
 def setup():

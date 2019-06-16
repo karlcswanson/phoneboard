@@ -6,7 +6,7 @@ import twilio_api
 import codec
 
 
-class Channel:
+class CodecChannel:
     def __init__(self, codec, cfg):
         self.codec = codec
         self.name = cfg['name']
@@ -59,16 +59,10 @@ class Channel:
     def call(self):
         path = '/ve/channel/call?ch={}&uri={}'.format(self.channel, self.uri)
         out = self.codec.load_json(path)
-        # if 'call' in out:
-            # self.set_hook_status('DIALING')
-        print(out)
 
     def drop(self):
         path = '/ve/channel/line?ch={}&oh=false'.format(self.channel)
         out = self.codec.load_json(path)
-        # if out['oh'] == 0:
-            # self.set_hook_status('DISCONNECTED')
-        print(out)
 
     def call_time(self):
         if self.hook_status == 'CONNECTED':
@@ -84,10 +78,30 @@ class Channel:
             return conf.conference_json()
         return {}
 
+    def combined_status(self):
+        conf = twilio_api.get_conference_by_name(self.name)
+        if conf:
+            if self.channel_status() == 'CONNECTED' and conf.status() == 'CONNECTED':
+                return 'CONNECTED'
+        return 'DISCONNECTED'
 
     def ch_json(self):
-        return {
+        json_out = {
             'name': self.name, 'status': self.channel_status(),
             'slot': self.slot, 'vu': self.vu, 'call_time': self.call_time(),
-            'studio_light': self.studio_light, 'conf' : self.twilio_conference()
+            'studio_light': self.studio_light,
+            'combined_status': self.combined_status()
         }
+        conf = twilio_api.get_conference_by_name(self.name)
+        if conf:
+            conf_out = {
+                'conf_status': conf.status(), 'conf_time': conf.call_time(),
+                'conf_name': conf.name, 'conf_count': conf.call_count
+            }
+        else:
+            conf_out = {
+                'conf_status': 'NA', 'conf_time': '--:--:--',
+                'conf_name': '', 'conf_count': 0
+            }
+        json_out.update(conf_out)
+        return json_out

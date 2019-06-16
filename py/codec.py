@@ -3,7 +3,7 @@ import urllib.request
 import json
 import logging
 
-from channel import Channel
+from channel import CodecChannel
 
 class Codec:
     def __init__(self, ip):
@@ -27,7 +27,7 @@ class Codec:
 
     def add_channels(self, cfg):
         for chan in cfg['channels']:
-            self.channels.append(Channel(self, chan))
+            self.channels.append(CodecChannel(self, chan))
 
     def load_json(self, path):
         url = 'http://' + self.ip + path

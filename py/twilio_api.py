@@ -4,11 +4,9 @@ from datetime import datetime
 from twilio.rest import Client
 from twilio.rest.api.v2010.account.conference import ConferenceInstance
 
-import influxdb_api
-
 import config
 
-TWILIO_TIMEOUT = 10
+TWILIO_TIMEOUT = 30
 
 conn = []
 
@@ -86,7 +84,6 @@ def twilio_query_service():
 
         conference_list = c_list
         for c in conference_list:
-            influxdb_api.influx_send_twilio(c)
             print(c.conference_json())
 
         time.sleep(5)
