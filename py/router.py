@@ -1,4 +1,4 @@
-from flask import Flask, Response
+from flask import Flask, Response, request
 import callControl
 
 app = Flask(__name__)
@@ -7,16 +7,24 @@ app = Flask(__name__)
 
 @app.route('/conference/join')
 def join():
-    return Response(callControl.initialCall(To="+18445051150"), mimetype='text/xml')
+    To = request.args.get('To')
+    print(To)
+    return Response(callControl.initialCall(To=To), mimetype='text/xml')
 
 @app.route('/conference/gatherDigit')
 def gatherDigit():
-    return Response(callControl.gatherDigits(To="+18445051150",Digit=6), mimetype='text/xml')
+    To = request.args.get('To')
+    Digit = request.args.get('Digit')
+    return Response(callControl.gatherDigits(To=To,Digit=Digit), mimetype='text/xml')
 
 @app.route('/conference/onHold')
 def onHold():
     return Response(callControl.conferenceOnHold(), mimetype='text/xml')
 
+@app.route('/conference/codecs')
+def codecs():
+    From = request.args.get('From')
+    return Response(callControl.codecConference(From=From), mimetype='text/xml')
 
 if __name__ == '__main__':
-    app.run(debug = True)
+    app.run()
