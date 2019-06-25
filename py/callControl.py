@@ -8,14 +8,14 @@ languages = {1: "Spanish", 2: "Chinese", 3: "Korean",
 # These paramaters come from the arguments within a GET request: To, Digits, From
 
 def initialCall(To):
-    if To == "18445051150" and is_live():  # If calling live number and is live
+    if To == " 18445051150" and is_live():  # If calling live number and is live
         response = VoiceResponse()
         gather = Gather(action="/conference/gatherDigit", method="GET",
                         num_digits=1, timeout=30)
         gather.play('http://twilio.willowcreek.org/mp3/LiveList.mp3')
         response.append(gather)
         return str(response)
-    elif To == "18445051151" and is_delay_live():  # If calling delayed number and is delay live
+    elif To == " 18445051151" and is_delay_live():  # If calling delayed number and is delay live
         response = VoiceResponse()
         gather = Gather(action="/conference/gatherDigit", method="GET",
                         num_digits=1, timeout=30)
@@ -35,7 +35,7 @@ def gatherDigits(To, Digit):
     # If they pressed a correct option
     try:
         # This if statement generates the MP3 announement file on the fly so we can avoid having to build a seperate dictionary
-        if To == "18445051150":  # These numbers need to be moved to the config file
+        if To == " 18445051150":  # These numbers need to be moved to the config file
             mp3 = "http://twilio.willowcreek.org/mp3/{}.mp3".format(
                 "Live" + languages[Digit])
         else:
@@ -43,7 +43,7 @@ def gatherDigits(To, Digit):
                 "Delayed" + languages[Digit])
         # This will generate the wait URL, the function is conferenceOnHold
         # After looking at this, I dont think we need it actually...
-        if To == "18445051150":
+        if To == " 18445051150":
             # This URL will be different
             waitUrl = "http://twilio.willowcreek.org/wait/{}".format(
                 languages[Digit]).lower()
@@ -52,7 +52,7 @@ def gatherDigits(To, Digit):
             waitUrl = "http://twilio.willowcreek.org/wait/{}delay".format(
                 languages[Digit]).lower()
         # And finally the conference name
-        if To == "18445051150":
+        if To == " 18445051150":
             conferenceName = languages[Digit]
         else:
             conferenceName = "{}delay".format(languages[Digit])
