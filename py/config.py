@@ -137,30 +137,30 @@ def save_current_config():
 
 def is_live():
     time = datetime.now()
-    liveTimes = {
-            ('1/1/2018 9:15am', '1/1/2020 8:00pm'):True,
-            ('2/1/2018 9:00am', '2/1/2018 8:00pm'):True,
-            }
+    liveTimes = [
+            ['1/1/2018 9:15am', '1/1/2020 8:00pm'],
+            ['2/1/2018 9:00am', '2/1/2018 8:00pm'],
+    ]
 
-    for (begin, end), result in liveTimes.items():
+    for (begin, end) in liveTimes:
         begin = datetime.strptime(begin, "%m/%d/%Y %I:%M%p")
         end = datetime.strptime(end, "%m/%d/%Y %I:%M%p")
         if begin<=time<=end:
-            return result
+            return True
         else:
             return False
 
 def is_delay_live():
     time = datetime.now()
-    delayTimes = {
-            ('1/1/2018 9:15am', '1/1/2020 8:00pm'):True,
-            ('2/1/2018 9:00am', '2/1/2018 8:00pm'):True,
-            }
+    delayTimes = [
+            ['1/1/2018 9:15am', '1/1/2020 8:00pm'],
+            ['2/1/2018 9:00am', '2/1/2018 8:00pm'],
+    ]
 
-    for (begin, end), result in delayTimes.items():
+    for (begin, end) in delayTimes:
         begin = datetime.strptime(begin, "%m/%d/%Y %I:%M%p")
         end = datetime.strptime(end, "%m/%d/%Y %I:%M%p")
         if begin<=time<=end:
-            return result
+            return True
         else:
             return False
