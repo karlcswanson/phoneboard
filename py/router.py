@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/conference/join')
 def join():
-    return Response(callControl.initialCall(To="+18445051150",isLive=True,isDelayLive=True), mimetype='text/xml')
+    return Response(callControl.initialCall(To="+18445051150"), mimetype='text/xml')
 
 @app.route('/conference/gatherDigit')
 def gatherDigit():
