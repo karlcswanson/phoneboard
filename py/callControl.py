@@ -7,16 +7,15 @@ languages = {1: "Spanish", 2: "Chinese", 3: "Korean",
 
 # These paramaters come from the arguments within a GET request: To, Digits, From
 
-
-def initialCall(To, isLive, isDelayLive):
-    if To == "+18445051150" and isLive == True:  # If calling live number and is live
+def initialCall(To):
+    if To == "+18445051150" and is_live():  # If calling live number and is live
         response = VoiceResponse()
         gather = Gather(action="/conference/gatherDigit", method="GET",
                         num_digits=1, timeout=30)
         gather.play('http://twilio.willowcreek.org/mp3/LiveList.mp3')
         response.append(gather)
         return str(response)
-    elif To == "+18445051151" and isDelayLive == True:  # If calling delayed number and is delay live
+    elif To == "+18445051151" and is_delay_live():  # If calling delayed number and is delay live
         response = VoiceResponse()
         gather = Gather(action="/conference/gatherDigit", method="GET",
                         num_digits=1, timeout=30)
@@ -76,7 +75,6 @@ def gatherDigits(To, Digit):
         response.redirect("/conference/join")
 
         return str(response)
-
 
 def conferenceOnHold():
     response = VoiceResponse()
