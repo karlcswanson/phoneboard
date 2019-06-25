@@ -153,7 +153,7 @@ def is_live():
 def is_delay_live():
     time = datetime.now()
     delayTimes = [
-            ['1/1/2018 9:15am', '1/1/2020 8:00pm'],
+            ['1/1/2018 9:15am', '1/1/2019 8:00pm'],
             ['2/1/2018 9:00am', '2/1/2018 8:00pm'],
     ]
 
