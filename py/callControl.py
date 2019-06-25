@@ -88,7 +88,7 @@ def codecConference(From):
     response = VoiceResponse()
     dial = Dial()
     dial.conference(muted=False, beep=False, end_conference_on_exit=False,
-                    start_conference_on_enter=False, max_participants=250, trim="do_not_trim", name=conferenceName)
+                    start_conference_on_enter=True, max_participants=250, trim="do_not_trim", name=conferenceName)
     response.append(dial)
 
     return str(response)
