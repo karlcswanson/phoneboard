@@ -1,5 +1,6 @@
 from twilio.twiml.voice_response import VoiceResponse, Say, Gather, Play, Dial
 from re import match
+from config import is_delay_live,is_live
 
 languages = {1: "Spanish", 2: "Chinese", 3: "Korean",
              4: "French"}  # We should move this to the config file
