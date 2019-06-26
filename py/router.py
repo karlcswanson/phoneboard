@@ -8,7 +8,6 @@ app = Flask(__name__)
 @app.route('/conference/join')
 def join():
     To = request.args.get('To')
-    print(To)
     return Response(callControl.initialCall(To=To), mimetype='text/xml')
 
 @app.route('/conference/gatherDigit')
