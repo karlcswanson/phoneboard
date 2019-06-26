@@ -92,6 +92,3 @@ def codecConference(From):
     response.append(dial)
 
     return str(response)
-
-def foo():
-    return "bar"
