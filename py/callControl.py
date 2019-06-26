@@ -38,10 +38,10 @@ def gatherDigits(To, Digits):
         # This if statement generates the MP3 announement file on the fly so we can avoid having to build a seperate dictionary
         if To == "+18445051150":  # These numbers need to be moved to the config file
             mp3 = "http://twilio.willowcreek.org/mp3/{}.mp3".format(
-                "Live" + languages[Digits])
+                "live" + languages[Digits])
         else:
             mp3 = "http://twilio.willowcreek.org/mp3/{}.mp3".format(
-                "Delayed" + languages[Digits])
+                "delayed" + languages[Digits])
         # This will generate the wait URL, the function is conferenceOnHold
         # After looking at this, I dont think we need it actually...
         if To == "+18445051150":
