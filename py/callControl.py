@@ -2,8 +2,9 @@ from twilio.twiml.voice_response import VoiceResponse, Say, Gather, Play, Dial
 from re import match
 from config import is_delay_live,is_live
 
-languages = {1: "Spanish", 2: "Chinese", 3: "Korean",
-             4: "French"}  # We should move this to the config file
+#The languages are case sensitive
+languages = {1: "spanish", 2: "chinese", 3: "korean",
+             4: "french"}  # We should move this to the config file
 
 # These paramaters come from the arguments within a GET request: To, Digits, From
 
