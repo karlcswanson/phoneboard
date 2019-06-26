@@ -11,10 +11,10 @@ def join():
     return Response(callControl.initialCall(To=To), mimetype='text/xml')
 
 @app.route('/conference/gatherDigit')
-def gatherDigit():
+def gatherDigits():
     To = request.args.get('To')
-    Digit = request.args.get('Digit')
-    return Response(callControl.gatherDigits(To=To,Digit=Digit), mimetype='text/xml')
+    Digits = int(request.args.get('Digits'))
+    return Response(callControl.gatherDigits(To=To,Digits=Digits), mimetype='text/xml')
 
 @app.route('/conference/onHold')
 def onHold():
@@ -26,4 +26,4 @@ def codecs():
     return Response(callControl.codecConference(From=From), mimetype='text/xml')
 
 if __name__ == '__main__':
-    app.run()
+    app.run(debug=True)

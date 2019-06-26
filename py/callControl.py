@@ -31,31 +31,31 @@ def initialCall(To):
         return str(response)
 
 
-def gatherDigits(To, Digit):
+def gatherDigits(To, Digits):
     # If they pressed a correct option
     try:
         # This if statement generates the MP3 announement file on the fly so we can avoid having to build a seperate dictionary
         if To == "+18445051150":  # These numbers need to be moved to the config file
             mp3 = "http://twilio.willowcreek.org/mp3/{}.mp3".format(
-                "Live" + languages[Digit])
+                "Live" + languages[Digits])
         else:
             mp3 = "http://twilio.willowcreek.org/mp3/{}.mp3".format(
-                "Delayed" + languages[Digit])
+                "Delayed" + languages[Digits])
         # This will generate the wait URL, the function is conferenceOnHold
         # After looking at this, I dont think we need it actually...
         if To == "+18445051150":
             # This URL will be different
             waitUrl = "http://twilio.willowcreek.org/wait/{}".format(
-                languages[Digit]).lower()
+                languages[Digits]).lower()
         else:
             # This URL will be different
             waitUrl = "http://twilio.willowcreek.org/wait/{}delay".format(
-                languages[Digit]).lower()
+                languages[Digits]).lower()
         # And finally the conference name
         if To == "+18445051150":
-            conferenceName = languages[Digit]
+            conferenceName = languages[Digits]
         else:
-            conferenceName = "{}delay".format(languages[Digit])
+            conferenceName = "{}delay".format(languages[Digits])
 
         # Build TWIML
         response = VoiceResponse()
