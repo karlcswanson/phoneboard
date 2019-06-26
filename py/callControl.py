@@ -44,12 +44,10 @@ def gatherDigits(To, Digits):
         # This will generate the wait URL, the function is conferenceOnHold
         # After looking at this, I dont think we need it actually...
         if To == "+18445051150":
-            # This URL will be different
-            waitUrl = "http://twilio.willowcreek.org/wait/{}".format(
+            waitUrl = "http://twilio.willowcreek.org/onHold/{}".format(
                 languages[Digits]).lower()
         else:
-            # This URL will be different
-            waitUrl = "http://twilio.willowcreek.org/wait/{}delay".format(
+            waitUrl = "http://twilio.willowcreek.org/onHold/{}delay".format(
                 languages[Digits]).lower()
         # And finally the conference name
         if To == "+18445051150":
@@ -63,7 +61,7 @@ def gatherDigits(To, Digits):
         response.append(play)
         dial = Dial()
         dial.conference(muted=True, beep=False, end_conference_on_exit=False, start_conference_on_enter=False,
-                        max_participants=250, trim="do_not_trim", wait_url=waitUrl, name=conferenceName)
+                        max_participants=250, trim="do-not-trim", wait_url=waitUrl, name=conferenceName)
         response.append(dial)
 
         return str(response)
@@ -88,7 +86,7 @@ def codecConference(From):
     response = VoiceResponse()
     dial = Dial()
     dial.conference(muted=False, beep=False, end_conference_on_exit=False,
-                    start_conference_on_enter=True, max_participants=250, trim="do_not_trim", name=conferenceName)
+                    start_conference_on_enter=True, max_participants=250, trim="do-not-trim", name=conferenceName)
     response.append(dial)
 
     return str(response)
