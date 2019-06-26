@@ -72,7 +72,7 @@ def gatherDigits(To, Digit):
         response = VoiceResponse()
         response.say("That is not a valid option")
         # this should take you back to the first URL and function initialCall
-        response.redirect("/conference/join")
+        response.redirect("/conference/join",method="GET")
 
         return str(response)
 
