@@ -61,7 +61,7 @@ def gatherDigits(To, Digits):
         response.append(play)
         dial = Dial()
         dial.conference(muted=True, beep=False, end_conference_on_exit=False, start_conference_on_enter=False,
-                        max_participants=250, trim="do-not-trim", wait_url=waitUrl, name=conferenceName)
+                        max_participants=250, trim="do-not-trim", wait_url="/conference/onHold", name=conferenceName)
         response.append(dial)
 
         return str(response)
