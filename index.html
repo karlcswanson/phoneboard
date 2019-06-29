@@ -11,11 +11,29 @@
   </head>
   <body>
     <div class="container-fluid">
-
+      <div id="phoneboard">
+        <div id="live-row" class="row"></div>
+        <div id="delay-row" class="row"></div>
+      </div>
     </div>
 
     <template id="channel-template">
-
+      <div class="col-sm">
+        <div class="channel_name">
+          <p class="name text-center"></p>
+        </div>
+        <div class="info-drawer">
+          <p class="codec-status">&#9679;</p>
+          <p class="codec-time"></p>
+          <p class="codec-drop"></p>
+          <p class="conference-status">&#9679;</p>
+          <p class="conference-time"></p>
+          <p class="conference-size"></p>
+          <div class="studio-light-box">
+            <p class="studio-light"></p>
+          </div>
+        </div>
+      </div>
     </template>
     <script src="static/app.js"></script>
   </body>

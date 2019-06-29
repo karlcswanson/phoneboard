@@ -34,7 +34,7 @@ def codec_query_service():
                 if channel.studio_light == 'OFF-AIR' and channel.hook_status == 'CONNECTED':
                     channel.drop()
 
-                influxdb_api.influx_send_channel(channel)
+                # influxdb_api.influx_send_channel(channel)
 
         time.sleep(1)
 

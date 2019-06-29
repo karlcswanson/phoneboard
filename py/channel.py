@@ -71,28 +71,38 @@ class CodecChannel:
 
         return '--:--:--'
 
-    def twilio_conference(self):
+    def conf(self):
         print("LOOKING FOR: {}".format(self.name))
         conf = twilio_api.get_conference_by_name(self.name)
         if conf:
-            return conf.conference_json()
-        return {}
+            return conf
+        return None
 
     def combined_status(self):
-        conf = twilio_api.get_conference_by_name(self.name)
+        conf = self.conf()
         if conf:
-            if self.channel_status() == 'CONNECTED' and conf.status() == 'CONNECTED':
+            if conf.status() == 'CONNECTED' and self.channel_status() == 'CONNECTED':
                 return 'CONNECTED'
+
+            if conf.status() == 'CONNECTED' and self.channel_status() in ['DISCONNECTED', 'DIALING']:
+                return 'OPEN'
+
+            if conf.status() == 'UNKNOWN':
+                return 'UNKNOWN'
+
+        if self.channel_status() == 'UNKNOWN':
+            return 'UNKNOWN'
+
         return 'DISCONNECTED'
 
     def ch_json(self):
         json_out = {
-            'name': self.name, 'status': self.channel_status(),
+            'name': self.name, 'codec_status': self.channel_status(),
             'slot': self.slot, 'vu': self.vu, 'call_time': self.call_time(),
             'studio_light': self.studio_light,
-            'combined_status': self.combined_status()
+            'status': self.combined_status()
         }
-        conf = twilio_api.get_conference_by_name(self.name)
+        conf = self.conf()
         if conf:
             conf_out = {
                 'conf_status': conf.status(), 'conf_time': conf.call_time(),
@@ -100,7 +110,7 @@ class CodecChannel:
             }
         else:
             conf_out = {
-                'conf_status': 'NA', 'conf_time': '--:--:--',
+                'conf_status': 'DISCONNECTED', 'conf_time': '--:--:--',
                 'conf_name': '', 'conf_count': 0
             }
         json_out.update(conf_out)

@@ -79,6 +79,11 @@ class ChannelAPIHandler(web.RequestHandler):
             if cmd == 'drop':
                 ch.drop()
 
+            if cmd == 'close':
+                conf = ch.conf()
+                if conf:
+                    conf.close_room()
+
             if studio_light == 'disabled':
                 ch.set_studio_light('DISABLED')
             if studio_light == 'off-air':

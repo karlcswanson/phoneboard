@@ -35,7 +35,7 @@ class ConferenceRoom:
         self.conference = conference
         participants = conference.participants.list()
 
-        self.codec_status = 'DISCONNECTED'
+        self.codec_status = 'OPEN'
         for p in participants:
             if p.muted == False:
                 self.codec_status = 'CONNECTED'
@@ -53,11 +53,8 @@ class ConferenceRoom:
 
 
     def call_time(self):
-        if self.codec_status == 'CONNECTED':
-            delta = time.time() - self.call_start
-            return time.strftime('%H:%M:%S', time.gmtime(delta))
-
-        return '--:--:--'
+        delta = time.time() - self.call_start
+        return time.strftime('%H:%M:%S', time.gmtime(delta))
 
     def close_room(self):
         self.conference.update(status='completed')

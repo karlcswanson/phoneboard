@@ -1,5 +1,5 @@
 html,body {
-  background-color: var(--color-black);
+  background-color: var(--color-background);
 }
 
 .row {
@@ -21,4 +21,101 @@ h3 {
   font-family: 'IBM Plex Sans';
   font-weight: 300;
   font-style: italic;
+}
+
+.col-sm {
+  color: var(--color-white);
+  flex: 1 1 0;
+  width: 0;
+  padding: 0px;
+  margin: 10px;
+  min-width: 256px;
+}
+
+.channel_name {
+  background-color: var(--color-black);
+  border-radius: 12px 12px 0 0;
+  border: .5px;
+  border-color: var(--color-white);
+  border-style: solid;
+}
+
+.name {
+  font-family: 'IBM Plex Sans';
+  font-weight: bold;
+}
+
+.info-drawer {
+  background-color: var(--color-black);
+  border: .5px;
+  border-color: var(--color-white);
+  border-style: solid;
+  height: 240px;
+}
+
+.codec-time {
+  position: absolute;
+  font-family: 'IBM Plex Mono';
+  font-weight: 100;
+  bottom: 25px;
+  left: 15px;
+}
+
+.conference-time {
+  position: absolute;
+  font-family: 'IBM Plex Mono';
+  font-weight: 100;
+  bottom: 25px;
+  right: 15px;
+}
+
+
+// colors
+p.CONNECTED {
+  color: var(--color-green);
+}
+
+p.DISCONNECTED {
+  color: var(--color-red);
+}
+
+p.UNKNOWN {
+  color: var(--color-purple);
+}
+
+.channel_name {
+  &.CONNECTED {
+      background: var(--color-green);
+  }
+
+  &.OPEN {
+      background: var(--color-yellow);
+  }
+
+  &.DISCONNECTED {
+      background: var(--color-red);
+  }
+
+  &.UNKNOWN {
+      background: var(--color-purple);
+  }
+}
+
+.studio-light-box {
+  position: absolute;
+  left: 0px;
+  bottom: 0px;
+  border-style: solid;
+  height: 100px;
+  border-color: var(--color-gray);
+  width: 100%;
+  background: var(--color-white);
+}
+
+.ON-AIR {
+  color: var(--color-green);
+}
+
+.OFF-AIR {
+  color: var(--color-red);
 }
