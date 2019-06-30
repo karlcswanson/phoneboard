@@ -23,5 +23,6 @@ function JsonUpdate() {
 }
 
 export function initLiveData() {
+  // JsonUpdate();
   setInterval(JsonUpdate, 1000);
 }

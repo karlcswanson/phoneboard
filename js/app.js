@@ -17,4 +17,24 @@ phoneboard.connectionStatus = 'CONNECTING'
 $(document).ready(() => {
   renderChannels()
   initLiveData();
+
+
+
+
+  $('#phoneboard .col-sm .btn').on('click', function (e) {
+    const id = $(this).closest('.col-sm').attr('id').replace(/[^\d.]/g, '');
+    const cmd = $(this).val();
+
+    console.log("cmd: " + cmd + " ID: " + id);
+
+    let url = "/api/channel/" + id + "?cmd=" + cmd
+    console.log(url);
+
+
+    fetch(url, {
+      method:'POST'
+    }).then(/* ... */)
+  });
+
+
 });

@@ -11,6 +11,24 @@
   </head>
   <body>
     <div class="container-fluid">
+      <div id="clockboard" class="row">
+        <div class="col-sm clock-box" id="et">
+          <p class="zone text-center">ET</p>
+          <p class="time text-center">01:34:56</p>
+        </div>
+        <div class="col-sm clock-box" id="ct">
+          <p class="zone text-center">CT</p>
+          <p class="time text-center">12:34:56</p>
+        </div>
+        <div class="col-sm clock-box" id="mt">
+          <p class="zone text-center">MT</p>
+          <p class="time text-center">12:34:56</p>
+        </div>
+        <div class="col-sm clock-box" id="pt">
+          <p class="zone text-center">PT</p>
+          <p class="time text-center">12:34:56</p>
+        </div>
+      </div>
       <div id="phoneboard">
         <div id="live-row" class="row"></div>
         <div id="delay-row" class="row"></div>
@@ -22,15 +40,35 @@
         <div class="channel_name">
           <p class="name text-center"></p>
         </div>
+        <div class="studio-light-box text-center">
+          <p class="studio-light"></p>
+          <p class="vu">&#9679;</p>
+          <div class="btn-group" role="group" aria-label="Basic example">
+            <button type="button" class="btn btn-secondary" value="studio-light-disable">Disabled</button>
+            <button type="button" class="btn btn-danger" value="studiolight-off-air">OFF AIR</button>
+            <button type="button" class="btn btn-success" value="studiolight-on-air">ON AIR</button>
+          </div>
+        </div>
         <div class="info-drawer">
-          <p class="codec-status">&#9679;</p>
-          <p class="codec-time"></p>
-          <p class="codec-drop"></p>
-          <p class="conference-status">&#9679;</p>
-          <p class="conference-time"></p>
-          <p class="conference-size"></p>
-          <div class="studio-light-box">
-            <p class="studio-light"></p>
+          <div class="row">
+            <div class="col-5 text-left">
+              <p class="codec-status"><a href="#">codec</a> <span>&#9679;</span></p>
+              <p class="codec-time"></p>
+              <p class="codec-drop">drops: <span>0</span></p>
+              <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-success" value="call">call</button>
+                <button type="button" class="btn btn-danger" value="drop">drop</button>
+              </div>
+            </div>
+            <div class="col-2"></div>
+            <div class="col-5 text-left">
+              <p class="conference-status">conf <span>&#9679;</span></p>
+              <p class="conference-time"></p>
+              <p class="conference-size">sites: <span></span></p>
+              <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-danger" value="close_room">close</button>
+              </div>
+            </div>
           </div>
         </div>
       </div>

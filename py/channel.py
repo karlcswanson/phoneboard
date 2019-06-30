@@ -18,6 +18,7 @@ class CodecChannel:
         self.call_start = time.time() - 60
         self.vu = 0
         self.studio_light = 'DISABLED'
+        self.drops = 0
 
 
     def set_studio_light(self, mode):
@@ -98,8 +99,8 @@ class CodecChannel:
     def ch_json(self):
         json_out = {
             'name': self.name, 'codec_status': self.channel_status(),
-            'slot': self.slot, 'vu': self.vu, 'call_time': self.call_time(),
-            'studio_light': self.studio_light,
+            'slot': self.slot, 'ip': self.codec.ip, 'vu': self.vu,
+            'call_time': self.call_time(), 'studio_light': self.studio_light,
             'status': self.combined_status()
         }
         conf = self.conf()

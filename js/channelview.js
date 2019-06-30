@@ -33,13 +33,17 @@ function updateConferenceTime(slotSelector, data){
 }
 
 function updateConferenceSize(slotSelector, data){
-  slotSelector.querySelector('p.conference-size').innerHTML = data.conf_count;
+  slotSelector.querySelector('p.conference-size span').innerHTML = data.conf_count;
 }
 
 function updateStudioLight(slotSelector, data){
-  slotSelector.querySelector('p.studio-light').innerHTML = data.studio_light;
+  slotSelector.querySelector('p.studio-light').innerHTML = data.studio_light.replace('-', ' ');
   slotSelector.querySelector('p.studio-light').className = 'studio-light';
   slotSelector.querySelector('p.studio-light').classList.add(data.studio_light);
+}
+
+function updateIP(slotSelector, data){
+  slotSelector.querySelector('p.codec-status a').href = 'http://' + data.ip;
 }
 
 function updateViewOnly(slotSelector, data) {
@@ -66,6 +70,9 @@ function updateViewOnly(slotSelector, data) {
   }
   if('studio_light' in data){
     updateStudioLight(slotSelector, data);
+  }
+  if('ip' in data){
+    updateIP(slotSelector, data);
   }
 }
 
