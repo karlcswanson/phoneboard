@@ -38,7 +38,7 @@ function toggleFullScreen() {
 
 
 function toggleControls(){
-  $('#phoneboard .col-sm .btn').toggle(400);
+  $('#phoneboard .col-sm .btn-group').toggle(400);
 }
 
 function toggleClockboard(){
@@ -77,8 +77,9 @@ $(document).ready(() => {
   initLiveData();
 
   keybindings();
+  toggleControls();
 
-  setInterval(updateClock,100);
+  setInterval(updateClock, 300);
   $('#phoneboard .col-sm .btn').on('click', function (e) {
     const id = $(this).closest('.col-sm').attr('id').replace(/[^\d.]/g, '');
     const cmd = $(this).val();

@@ -4,6 +4,7 @@ html,body {
 
 .row {
   padding-top: 50px;
+  // padding-bottom:25px;
 }
 
 .card {
@@ -130,6 +131,10 @@ p.CONNECTED span {
   color: var(--color-green);
 }
 
+p.OPEN span {
+  color: var(--color-yellow);
+}
+
 p.DISCONNECTED span {
   color: var(--color-red);
 }
@@ -188,7 +193,7 @@ p.UNKNOWN span {
   color: var(--color-red);
 }
 
-.btn-group {
+#phoneboard .col-sm .btn-group {
   // display: none;
 }
 
@@ -198,4 +203,5 @@ p.UNKNOWN span {
   position: absolute;
   top: 1em;
   right: 1em;
+  display: none;
 }

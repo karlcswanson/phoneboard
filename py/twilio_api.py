@@ -1,5 +1,6 @@
 import time
 from datetime import datetime
+import logging
 
 from twilio.rest import Client
 from twilio.rest.api.v2010.account.conference import ConferenceInstance
@@ -39,7 +40,6 @@ class ConferenceRoom:
         for p in participants:
             if p.muted == False:
                 self.codec_status = 'CONNECTED'
-                self.call_count = len(participants) - 1
 
         if self.codec_status == 'CONNECTED':
             self.call_count = len(participants) - 1
@@ -57,7 +57,10 @@ class ConferenceRoom:
         return time.strftime('%H:%M:%S', time.gmtime(delta))
 
     def close_room(self):
-        self.conference.update(status='completed')
+        try:
+            self.conference.update(status='completed')
+        except:
+            logging.debug("unable to close room")
 
     def status(self):
         if (time.time() - self.timestamp) < TWILIO_TIMEOUT:

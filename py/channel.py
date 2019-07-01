@@ -19,6 +19,7 @@ class CodecChannel:
         self.vu = 0
         self.studio_light = 'DISABLED'
         self.drops = 0
+        self.call_tstamp = time.time() - 60
 
 
     def set_studio_light(self, mode):
@@ -58,8 +59,12 @@ class CodecChannel:
         return 'UNKNOWN'
 
     def call(self):
+        if time.time() - self.call_tstamp < 10:
+            return None
+
         path = '/ve/channel/call?ch={}&uri={}'.format(self.channel, self.uri)
         out = self.codec.load_json(path)
+        call_tstamp = time.time()
 
     def drop(self):
         path = '/ve/channel/line?ch={}&oh=false'.format(self.channel)
