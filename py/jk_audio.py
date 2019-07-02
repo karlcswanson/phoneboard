@@ -2,6 +2,7 @@ import time
 import logging
 
 from codec import Codec
+from channel import data_update_list
 import influxdb_api
 
 audio_codecs = []
@@ -40,7 +41,8 @@ def codec_query_service():
 
                 if conf:
                     if channel.studio_light == 'ON-AIR' and conf.status() in ['OPEN', 'DISCONNECTED']:
-                        channel.drop()
+                        if time.time() - channel.hook_tstamp > 20:
+                            channel.drop()
 
                     if channel.studio_light == 'OFF-AIR' and conf.status() in ['OPEN', 'CONNECTED']:
                         conf.close_room()
@@ -49,6 +51,14 @@ def codec_query_service():
 
         time.sleep(1)
 
+def codec_ws_service():
+    time.sleep(2)
+    while True:
+        for codec in audio_codecs:
+            for channel in codec.channels:
+                if channel not in data_update_list:
+                    data_update_list.append(channel)
+        time.sleep(1)
 
 
 def codec_vu_service():

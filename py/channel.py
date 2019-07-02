@@ -6,6 +6,8 @@ import twilio_api
 import codec
 
 
+data_update_list = []
+
 class CodecChannel:
     def __init__(self, codec, cfg):
         self.codec = codec
@@ -19,10 +21,14 @@ class CodecChannel:
         self.vu = 0
         self.studio_light = 'DISABLED'
         self.drops = 0
-        self.call_tstamp = time.time() - 60
+        self.call_drop_tstamp = time.time() - 60
 
 
     def set_studio_light(self, mode):
+        if self.studio_light != mode:
+            self.drops = 0
+
+
         if mode in ['DISABLED', 'OFF-AIR', 'ON-AIR']:
             self.studio_light = mode
 
@@ -52,6 +58,8 @@ class CodecChannel:
                 self.set_hook_status('DISCONNECTED')
 
             self.hook_tstamp = time.time()
+        # if self not in data_update_list:
+        #     data_update_list.append(self)
 
     def channel_status(self):
         if (time.time() - self.hook_tstamp) < 4:
@@ -59,12 +67,16 @@ class CodecChannel:
         return 'UNKNOWN'
 
     def call(self):
-        if time.time() - self.call_tstamp < 10:
+        if time.time() - self.call_drop_tstamp < 4:
             return None
 
         path = '/ve/channel/call?ch={}&uri={}'.format(self.channel, self.uri)
         out = self.codec.load_json(path)
-        call_tstamp = time.time()
+        self.call_drop_tstamp = time.time()
+
+        if self.conf():
+            self.drops = self.drops + 1
+
 
     def drop(self):
         path = '/ve/channel/line?ch={}&oh=false'.format(self.channel)
@@ -105,6 +117,7 @@ class CodecChannel:
         json_out = {
             'name': self.name, 'codec_status': self.channel_status(),
             'slot': self.slot, 'ip': self.codec.ip, 'vu': self.vu,
+            'drops': self.drops,
             'call_time': self.call_time(), 'studio_light': self.studio_light,
             'status': self.combined_status()
         }

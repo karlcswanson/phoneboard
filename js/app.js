@@ -15,15 +15,16 @@ import {  renderChannels } from './channelview.js';
 
 export const phoneboard = [];
 phoneboard.connectionStatus = 'CONNECTING'
+phoneboard.channels = [];
 
 
 
 function updateClock(){
   let time = moment();
-  document.querySelector('#et .time').innerHTML = time.tz("America/New_York").format('HH:mm:ss')
-  document.querySelector('#ct .time').innerHTML = time.tz("America/Chicago").format('HH:mm:ss')
-  document.querySelector('#mt .time').innerHTML = time.tz("America/Denver").format('HH:mm:ss')
-  document.querySelector('#pt .time').innerHTML = time.tz("America/Los_Angeles").format('HH:mm:ss')
+  document.querySelector('#et .time').innerHTML = time.tz("America/New_York").format('hh:mm:ss')
+  document.querySelector('#ct .time').innerHTML = time.tz("America/Chicago").format('hh:mm:ss')
+  document.querySelector('#mt .time').innerHTML = time.tz("America/Denver").format('hh:mm:ss')
+  document.querySelector('#pt .time').innerHTML = time.tz("America/Los_Angeles").format('hh:mm:ss')
 }
 
 
@@ -70,30 +71,11 @@ function keybindings() {
 
 
 
-
-
 $(document).ready(() => {
-  renderChannels()
-  initLiveData();
+  initLiveData(renderChannels);
 
   keybindings();
-  toggleControls();
 
   setInterval(updateClock, 300);
-  $('#phoneboard .col-sm .btn').on('click', function (e) {
-    const id = $(this).closest('.col-sm').attr('id').replace(/[^\d.]/g, '');
-    const cmd = $(this).val();
-
-    console.log("cmd: " + cmd + " ID: " + id);
-
-    let url = "/api/channel/" + id + "?cmd=" + cmd
-    console.log(url);
-
-
-    fetch(url, {
-      method:'POST'
-    }).then(/* ... */)
-  });
-
 
 });

@@ -16,11 +16,13 @@ def main():
     status_t = threading.Thread(target=jk_audio.codec_query_service)
     # vu_t = threading.Thread(target=jk_audio.codec_vu_service)
     twilio_t = threading.Thread(target=twilio_api.twilio_query_service)
+    socket_t = threading.Thread(target=jk_audio.codec_ws_service)
 
     web_t.start()
     status_t.start()
     # vu_t.start()
     twilio_t.start()
+    socket_t.start()
 
 
 if __name__ == '__main__':

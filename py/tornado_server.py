@@ -54,9 +54,16 @@ class SocketHandler(websocket.WebSocketHandler):
     def ws_dump(cls):
         out = {}
 
+        if jk_audio.data_update_list:
+            out['data-update'] = []
+            for ch in jk_audio.data_update_list:
+                out['data-update'].append(ch.ch_json())
+
         if out:
             data = json.dumps(out)
             cls.broadcast(data)
+
+        del jk_audio.data_update_list[:]
 
 
 class ChannelAPIHandler(web.RequestHandler):
@@ -141,6 +148,7 @@ class GroupAPIHandler(web.RequestHandler):
 def twisted():
     app = web.Application([
         (r'/', IndexHandler),
+        (r'/ws', SocketHandler),
         (r'/data', JsonHandler),
         (r'/api/channel/([0-9]+)', ChannelAPIHandler),
         (r'/api/group/([0-9]+)', GroupAPIHandler),
@@ -150,5 +158,5 @@ def twisted():
     # https://github.com/tornadoweb/tornado/issues/2308
     asyncio.set_event_loop(asyncio.new_event_loop())
     app.listen(config.web_port())
-    # ioloop.PeriodicCallback(SocketHandler.ws_dump, 50).start()
+    ioloop.PeriodicCallback(SocketHandler.ws_dump, 50).start()
     ioloop.IOLoop.instance().start()
