@@ -155,7 +155,34 @@ function buttonSetup() {
       method:'POST'
     }).then(/* ... */)
   });
+
+  $('#mastercontrol .col-sm .btn').on('click', function (e) {
+    const id = $(this).closest('.col-sm').attr('id').replace(/[^\d.]/g, '');
+    const cmd = $(this).val();
+
+    console.log("cmd: " + cmd + " ID: " + id);
+
+    let url = "/api/group/" + id + "?cmd=" + cmd
+    console.log(url);
+
+
+    fetch(url, {
+      method:'POST'
+    }).then(/* ... */)
+  });
 }
+
+
+function infoToggle() {
+  $('#phoneboard .col-sm').click((e) => {
+    if ($(window).width() <= 512) {
+      $(e.currentTarget).find('.info-drawer').toggle();
+      $(e.currentTarget).find('.studio-light-box').toggle();
+    }
+  });
+}
+
+
 
 export function renderChannels(){
   // TODO Match from group config file
@@ -177,5 +204,7 @@ export function renderChannels(){
     document.getElementById('delay-row').appendChild(t);
   }
   $('#phoneboard .col-sm .btn-group').toggle();
+  $('#mastercontrol').toggle();
   buttonSetup();
+  infoToggle();
 }

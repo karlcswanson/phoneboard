@@ -2,11 +2,28 @@ html,body {
   background-color: var(--color-background);
 }
 
-.row {
+#phoneboard .row {
   padding-top: 50px;
   // padding-bottom:25px;
 }
 
+#mastercontrol {
+  padding-top: 25px;
+}
+
+#mastercontrol .col {
+  background: var(--color-black);
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 1em;
+  border-radius: 12px;
+}
+
+#mastercontrol h2 {
+  font-size: 4rem;
+  font-family: 'IBM Plex Sans';
+  font-weight: 800;
+}
 .card {
   background-color: var(--color-black);
   border: 1px solid var(--color-shadow);
@@ -15,7 +32,7 @@ html,body {
 
 h3 {
   font-family: 'IBM Plex Sans';
-  font-weight: 500;
+  font-weight: 800;
 }
 
 
@@ -204,4 +221,37 @@ p.UNKNOWN span {
   top: 1em;
   right: 1em;
   display: none;
+}
+
+
+
+
+@media (max-width: 512px) {
+  #phoneboard .col-sm .channel_name{
+    border-width: 0;
+    border-radius: 0px;
+  }
+
+  .info-drawer {
+    display: none;
+  }
+
+  .studio-light-box {
+    display: none;
+  }
+
+  #delay-row {
+    padding-top: 0px!important;
+  }
+
+  #live-row {
+    padding-top: 25px!important;
+  }
+
+  #mastercontrol {
+    background: var(--color-black);
+    // border-radius: 12px;
+    // padding-left: 1em;
+    // padding-right: 1em;
+  }
 }

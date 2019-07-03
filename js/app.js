@@ -46,6 +46,11 @@ function toggleClockboard(){
   $('#clockboard').toggle(400);
 }
 
+function toggleMastercontrol(){
+  $('#mastercontrol').toggle(400);
+}
+
+
 function keybindings() {
   document.addEventListener('keydown', (e) => {
     if (e.keyCode === 27) {
@@ -62,6 +67,10 @@ function keybindings() {
 
     if (e.keyCode === 70) {
       toggleFullScreen();
+    }
+
+    if (e.keyCode === 76) {
+      toggleMastercontrol();
     }
 
 
