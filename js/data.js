@@ -22,6 +22,15 @@ function JsonUpdate() {
     });
 }
 
+function checkReconnect() {
+  fetch(dataURL)
+    .then(response => response.json())
+    .then((data) => {
+      window.location.reload();
+    }).catch((error) => {
+      console.log(error);
+    });
+}
 
 function wsConnect() {
   const loc = window.location;
@@ -46,14 +55,19 @@ function wsConnect() {
   };
 
   phoneboard.socket.onclose = () => {
-    // ActivateMessageBoard();
+    ActivateMessageBoard();
   };
 
   phoneboard.socket.onerror = () => {
-    // ActivateMessageBoard();
+    ActivateMessageBoard();
   };
 }
 
+function ActivateMessageBoard() {
+  $('#phoneboard').hide();
+  $('.message-board').show();
+  setInterval(checkReconnect, 1000);
+}
 
 function dataFilterFromList(data) {
   data.codecs.forEach((jk) => {

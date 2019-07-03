@@ -1,5 +1,12 @@
 html,body {
   background-color: var(--color-background);
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
+}
+
+.container-fluid {
+  height: 100%
 }
 
 #phoneboard .row {
@@ -224,7 +231,19 @@ p.UNKNOWN span {
 }
 
 
+.message-board{
+  display: none;
+  background-color: var(--color-blue);
+  color: var(--color-white);
+  margin-left: -15px;
+  margin-right: -15px;
+  padding: 3em;
+  height: 100%;
+}
 
+.message-board a {
+  color: inherit;
+}
 
 @media (max-width: 512px) {
   #phoneboard .col-sm .channel_name{
