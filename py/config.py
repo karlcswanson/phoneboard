@@ -4,6 +4,7 @@ import json
 import logging
 import logging.handlers
 import argparse
+from datetime import datetime
 
 import jk_audio
 import groups
@@ -95,7 +96,7 @@ def config_file():
     elif os.path.exists(config_path(CONFIG_FILE_NAME)):
         return config_path(CONFIG_FILE_NAME)
     else:
-        loggging.warning('No config file found!')
+        logging.warning('No config file found!')
         sys.exit()
 
 
@@ -144,3 +145,33 @@ def write_json_config(data):
 
 def save_current_config():
     return write_json_config(config_tree)
+
+def is_live():
+    time = datetime.now()
+    liveTimes = [
+            ['1/1/2018 9:15am', '1/1/2020 8:00pm'],
+            ['2/1/2018 9:00am', '2/1/2018 8:00pm'],
+    ]
+
+    for (begin, end) in liveTimes:
+        begin = datetime.strptime(begin, "%m/%d/%Y %I:%M%p")
+        end = datetime.strptime(end, "%m/%d/%Y %I:%M%p")
+        if begin<=time<=end:
+            return True
+        else:
+            return False
+
+def is_delay_live():
+    time = datetime.now()
+    delayTimes = [
+            ['1/1/2018 9:15am', '1/1/2019 8:00pm'],
+            ['2/1/2018 9:00am', '2/1/2018 8:00pm'],
+    ]
+
+    for (begin, end) in delayTimes:
+        begin = datetime.strptime(begin, "%m/%d/%Y %I:%M%p")
+        end = datetime.strptime(end, "%m/%d/%Y %I:%M%p")
+        if begin<=time<=end:
+            return True
+        else:
+            return False
