@@ -1,11 +1,36 @@
 html,body {
-  background-color: var(--color-black);
+  background-color: var(--color-background);
+  height: 100%;
+  margin: 0px;
+  padding: 0px;
 }
 
-.row {
+.container-fluid {
+  height: 100%
+}
+
+#phoneboard .row {
   padding-top: 50px;
+  // padding-bottom:25px;
 }
 
+#mastercontrol {
+  padding-top: 25px;
+}
+
+#mastercontrol .col {
+  background: var(--color-black);
+  margin-left: 20px;
+  margin-right: 20px;
+  padding: 1em;
+  border-radius: 12px;
+}
+
+#mastercontrol h2 {
+  font-size: 4rem;
+  font-family: 'IBM Plex Sans';
+  font-weight: 800;
+}
 .card {
   background-color: var(--color-black);
   border: 1px solid var(--color-shadow);
@@ -14,11 +39,238 @@ html,body {
 
 h3 {
   font-family: 'IBM Plex Sans';
-  font-weight: 500;
+  font-weight: 800;
 }
+
+
+#clockboard {
+  // height: 200px;
+  background: var(--color-black);
+  padding-top: 25px;
+  padding-bottom: 25px;
+}
+
+.clock-box {
+  background: black;
+}
+
+.time {
+  font-family: 'IBM Plex Mono';
+  font-weight: 200;
+  font-size: 3em;
+  font-style: italic;
+  color: var(--color-white);
+}
+
+.zone {
+  font-family: 'IBM Plex Sans';
+  font-weight: 400;
+  font-size: 1.5em;
+  margin-bottom: 0px;
+}
+
+
 
 .venue-name {
   font-family: 'IBM Plex Sans';
   font-weight: 300;
   font-style: italic;
+}
+
+.col-sm {
+  color: var(--color-white);
+  flex: 1 1 0;
+  width: 0;
+  padding: 0px;
+  margin-left: 20px;
+  margin-right: 20px;
+  min-width: 256px;
+}
+
+.channel_name {
+  background-color: var(--color-black);
+  border-radius: 12px 12px 0 0;
+  border: .5px;
+  border-color: var(--color-gray);
+  border-style: solid;
+}
+
+.name {
+  font-family: 'IBM Plex Sans';
+  font-weight: bold;
+  font-size: 2.5em;
+  margin-bottom: 0px;
+}
+
+.info-drawer {
+  background-color: var(--color-black);
+  border: .5px;
+  border-color: var(--color-white);
+  border-style: solid;
+  padding: 0em 1em 1em 1em;
+  // height: 240px;
+}
+
+.info-drawer p{
+  margin-bottom: .75rem;
+}
+
+.info-drawer .row{
+  padding-top: 0px;
+}
+
+.codec-time, .conference-time {
+  font-family: 'IBM Plex Mono';
+  font-weight: 100;
+  font-size: 1.5em;
+  font-style: italic;
+}
+
+.codec-status {
+  a, a:hover, a:focus {
+    text-decoration: none;
+    color: var(--color-white);
+  }
+}
+
+.codec-status, .conference-status {
+  font-family: 'IBM Plex Mono';
+  font-size: 1.5em;
+  // font-weight: bold;
+}
+
+.codec-status span, .conference-status span{
+  font-size: 150%;
+}
+
+.codec-drop, .conference-size {
+  font-family: 'IBM Plex Mono';
+  // font-weight: 100;
+  font-size: 1.5em;
+}
+
+
+// colors
+p.CONNECTED span {
+  color: var(--color-green);
+}
+
+p.OPEN span {
+  color: var(--color-yellow);
+}
+
+p.DISCONNECTED span {
+  color: var(--color-red);
+}
+
+p.UNKNOWN span {
+  color: var(--color-purple);
+}
+
+.channel_name {
+  &.CONNECTED {
+      background: var(--color-green);
+  }
+
+  &.OPEN {
+      background: var(--color-yellow);
+  }
+
+  &.DISCONNECTED {
+      background: var(--color-red);
+  }
+
+  &.UNKNOWN {
+      background: var(--color-purple);
+  }
+}
+
+.studio-light-box {
+  position: relative;
+  // left: 0px;
+  // bottom: 0px;
+  // border-style: solid;
+  // height: 100px;
+  // border-color: var(--color-gray);
+  width: 100%;
+  background: var(--color-white);
+}
+
+.studio-light-box .btn-group {
+  margin: .75em;
+}
+
+.studio-light {
+  font-family: 'IBM Plex Sans';
+  font-weight: 500;
+  // font-style: italic;
+  font-size: 2em;
+  text-align: center!important;
+  margin-bottom: 0px;
+}
+
+.ON-AIR {
+  color: var(--color-green);
+}
+
+.OFF-AIR {
+  color: var(--color-red);
+}
+
+#phoneboard .col-sm .btn-group {
+  // display: none;
+}
+
+.vu {
+  color: var(--color-yellow);
+  margin: 0px;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+  display: none;
+}
+
+
+.message-board{
+  display: none;
+  background-color: var(--color-blue);
+  color: var(--color-white);
+  margin-left: -15px;
+  margin-right: -15px;
+  padding: 3em;
+  height: 100%;
+}
+
+.message-board a {
+  color: inherit;
+}
+
+@media (max-width: 512px) {
+  #phoneboard .col-sm .channel_name{
+    border-width: 0;
+    border-radius: 0px;
+  }
+
+  .info-drawer {
+    display: none;
+  }
+
+  .studio-light-box {
+    display: none;
+  }
+
+  #delay-row {
+    padding-top: 0px!important;
+  }
+
+  #live-row {
+    padding-top: 25px!important;
+  }
+
+  #mastercontrol {
+    background: var(--color-black);
+    // border-radius: 12px;
+    // padding-left: 1em;
+    // padding-right: 1em;
+  }
 }

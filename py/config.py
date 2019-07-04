@@ -5,6 +5,11 @@ import logging
 import logging.handlers
 import argparse
 
+import jk_audio
+import groups
+import twilio_api
+import influxdb_api
+
 APPNAME = 'phoneboard'
 
 CONFIG_FILE_NAME = 'config.json'
@@ -108,6 +113,8 @@ def config():
     args = parse_args()
     logging_init()
     read_json_config(config_file())
+    twilio_api.twilio_setup()
+    influxdb_api.setup()
     logging.info('Starting Phoneboard {}'.format(config_tree['phoneboard_version']))
 
 
@@ -122,8 +129,12 @@ def read_json_config(file):
     with open(file) as config_file:
         config_tree = json.load(config_file)
 
-        for chan in config_tree['slots']:
+        for chan in config_tree['codecs']:
+            codec = jk_audio.check_add_codec(chan['ip'])
+            codec.add_channels(chan)
             print(chan)
+        for group in config_tree['groups']:
+            groups.codec_groups.append(groups.Group(group))
 
     config_tree['phoneboard_version'] = get_version_number()
 
