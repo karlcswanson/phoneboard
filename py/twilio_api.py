@@ -4,6 +4,7 @@ import logging
 
 from twilio.rest import Client
 from twilio.rest.api.v2010.account.conference import ConferenceInstance
+from twilio.jwt.client import ClientCapabilityToken
 
 import config
 
@@ -95,6 +96,18 @@ def get_conference_by_name(name):
         if conference.name == name:
             return conference
     return None
+
+def get_capability_token():
+    account_sid = config.config_tree['twilio']['account_sid']
+    auth_token = config.config_tree['twilio']['auth_token']
+    application_sid = config.config_tree['twilio']['webrtc_sid']
+
+    capability = ClientCapabilityToken(account_sid, auth_token)
+    capability.allow_client_outgoing(application_sid)
+    token = capability.to_jwt()
+    return token
+
+
 
 def twilio_setup():
     global conn

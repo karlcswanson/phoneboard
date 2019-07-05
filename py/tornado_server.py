@@ -145,6 +145,11 @@ class GroupAPIHandler(web.RequestHandler):
         self.set_header('Content-Type', 'application/json')
         self.write(json_out)
 
+class webRTCTokenHandler(web.RequestHandler):
+    def get(self):
+        self.set_header('Content-Type', 'application/jwt')
+        self.write(twilio_api.get_capability_token())
+
 def twisted():
     app = web.Application([
         (r'/', IndexHandler),
@@ -153,6 +158,7 @@ def twisted():
         (r'/api/channel/([0-9]+)', ChannelAPIHandler),
         (r'/api/group/([0-9]+)', GroupAPIHandler),
         (r'/api/conference/', ConferenceAPIHandler),
+        (r'/api/auth_token', webRTCTokenHandler),
         (r'/static/(.*)', web.StaticFileHandler, {'path': config.app_dir('static')})
     ])
     # https://github.com/tornadoweb/tornado/issues/2308
