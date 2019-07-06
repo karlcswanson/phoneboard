@@ -187,6 +187,7 @@ p.UNKNOWN span {
 
 .studio-light-box {
   position: relative;
+  // top: -10px;
   // left: 0px;
   // bottom: 0px;
   // border-style: solid;
@@ -245,6 +246,21 @@ p.UNKNOWN span {
   color: inherit;
 }
 
+
+.volume {
+  height: 10px;
+  width: 100%;
+  background: var(--color-white);
+  border-radius: 0px;
+  position: absolute;
+  left: 0px;
+  top: 0px;
+}
+
+.volume .progress-bar {
+  background-color: var(--color-green);
+}
+
 @media (max-width: 512px) {
   #phoneboard .col-sm .channel_name{
     border-width: 0;
@@ -255,7 +271,7 @@ p.UNKNOWN span {
     display: none;
   }
 
-  .studio-light-box {
+  .-box {
     display: none;
   }
 

@@ -147,8 +147,10 @@ class GroupAPIHandler(web.RequestHandler):
 
 class webRTCTokenHandler(web.RequestHandler):
     def get(self):
-        self.set_header('Content-Type', 'application/jwt')
-        self.write(twilio_api.get_capability_token())
+        out = {}
+        out['auth_token'] = twilio_api.get_capability_token()
+        self.set_header('Content-Type', 'application/json')
+        self.write(json.dumps(out))
 
 def twisted():
     app = web.Application([

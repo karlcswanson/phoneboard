@@ -1,5 +1,5 @@
-import { phoneboard } from './app.js'
-
+import { phoneboard } from './app.js';
+import { activateTwiliowebRTC } from './twilio.js';
 
 function updateName(slotSelector, data) {
   slotSelector.querySelector('p.name').innerHTML = data.name;
@@ -174,10 +174,11 @@ function buttonSetup() {
 
 
 function infoToggle() {
-  $('#phoneboard .col-sm').click((e) => {
+  $('.channel_name').on('click', function (e) {
+    const id = $(this).closest('.col-sm').attr('id');
     if ($(window).width() <= 512) {
-      $(e.currentTarget).find('.info-drawer').toggle();
-      $(e.currentTarget).find('.studio-light-box').toggle();
+      $('#' + id + ' .info-drawer').toggle();
+      $('#' + id + ' .studio-light-box').toggle();
     }
   });
 }
@@ -207,4 +208,5 @@ export function renderChannels(){
   $('#mastercontrol').toggle();
   buttonSetup();
   infoToggle();
+  activateTwiliowebRTC();
 }

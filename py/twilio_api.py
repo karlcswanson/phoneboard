@@ -91,7 +91,8 @@ def twilio_query_service():
 
 
 def get_conference_by_name(name):
-    name = name.replace(' ', '').lower().replace('live','')
+    name = name.replace(' ', '').lower()
+    name = name.replace('live','').replace('delayed', 'delay')
     for conference in conference_list:
         if conference.name == name:
             return conference
@@ -105,7 +106,7 @@ def get_capability_token():
     capability = ClientCapabilityToken(account_sid, auth_token)
     capability.allow_client_outgoing(application_sid)
     token = capability.to_jwt()
-    return token
+    return token.decode("utf-8")
 
 
 
