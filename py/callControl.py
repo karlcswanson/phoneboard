@@ -15,15 +15,34 @@ LANGUAGE_LIST = ['spanish', 'chinese', 'korean', 'french',
 
 STUDIO_LIGHT_MODES = ['on-air', 'off-air']
 
+def group_is_closed():
+    response = VoiceResponse()
+    response.say(
+        'The language interpretation lines for the GLS are not yet open. \
+        Please call back 15 minutes prior to the next session'
+    )
+    return response
 
-def initialCall(To, webrtc_language):
-    if webrtc_language in LANGUAGE_LIST:
+
+def initialCall(To, conference_name):
+    if conference_name in LANGUAGE_LIST:
+
+        if 'delay' in conference_name:
+            group_status = conferenceStatus['delay']
+        else:
+            group_status = conferenceStatus['live']
+
+        if group_status == 'off-air':
+            return str(group_is_closed())
+
+
+
         response = VoiceResponse()
         dial = Dial()
         dial.conference(muted=True, beep=False, end_conference_on_exit=False,
                         start_conference_on_enter=False, max_participants=250,
                         trim="do-not-trim", wait_url="/conference/onHold",
-                        wait_method="GET", name=webrtc_language)
+                        wait_method="GET", name=conference_name)
         response.append(dial)
 
         return str(response)
@@ -40,12 +59,7 @@ def initialCall(To, webrtc_language):
             response.append(gather)
             return str(response)
 
-
-    response = VoiceResponse()
-    response.say(
-        'The language interpretation lines for the GLS are not yet open. \
-        Please call back 15 minutes prior to the next session')
-    return str(response)
+    return str(group_is_closed())
 
 
 def gatherDigits(To, digit):
@@ -84,6 +98,14 @@ def conferenceOnHold():
 
 def codecConference(From):
     conference_name = match("sip:(.*)@.*", From).group(1)
+
+    if 'delay' in conference_name:
+        group_status = conferenceStatus['delay']
+    else:
+        group_status = conferenceStatus['live']
+
+    if group_status == 'off-air':
+        return str(group_is_closed())
 
     response = VoiceResponse()
     dial = Dial()

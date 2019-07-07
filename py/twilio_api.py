@@ -92,7 +92,7 @@ def twilio_query_service():
 
 def get_conference_by_name(name):
     name = name.replace(' ', '').lower()
-    name = name.replace('live','').replace('delayed', 'delay')
+    name = name.replace('live', '').replace('delayed', 'delay')
     for conference in conference_list:
         if conference.name == name:
             return conference
@@ -117,10 +117,7 @@ def twilio_setup():
 def main():
     config.config()
     twilio_setup()
-
     twilio_query_service()
-
-
 
 
 if __name__ == '__main__':

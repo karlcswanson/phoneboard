@@ -26,7 +26,12 @@ html,body {
   border-radius: 12px;
 }
 
+
+
+
+
 #mastercontrol h2 {
+  color: var(--color-white);
   font-size: 4rem;
   font-family: 'IBM Plex Sans';
   font-weight: 800;
@@ -218,6 +223,10 @@ p.UNKNOWN span {
   color: var(--color-red);
 }
 
+.UNKNOWN {
+  color: var(--color-purple);
+}
+
 #phoneboard .col-sm .btn-group {
   // display: none;
 }
@@ -257,8 +266,17 @@ p.UNKNOWN span {
   top: 0px;
 }
 
+
 .volume .progress-bar {
   background-color: var(--color-green);
+}
+
+.webrtc-status {
+  position: absolute;
+  left: 15px;
+  top: 10px;
+  font-size: 1.5em;
+  display: none;
 }
 
 @media (max-width: 512px) {
@@ -271,7 +289,7 @@ p.UNKNOWN span {
     display: none;
   }
 
-  .-box {
+  .studio-light-box {
     display: none;
   }
 

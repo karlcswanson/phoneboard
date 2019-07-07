@@ -34,25 +34,37 @@
       <div id="mastercontrol" class="row">
 
         <div class="col">
-          <div class="row">
+          <div id="group-1" class="row master-group">
             <div class="col-sm">
-              <h2>Live</h2>
+              <h2>Live <span>&#9679;</span></h2>
             </div>
-            <div id="group-1" class="col-sm">
-              <button type="button" class="btn btn-success btn-block" value="studiolight-on-air">ON AIR</button>
-              <button type="button" class="btn btn-danger btn-block" value="studiolight-off-air">OFF AIR</button>
+            <div class="col-sm">
+              <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-danger" value="studiolight-off-air">OFF AIR</button>
+                <button type="button" class="btn btn-success" value="studiolight-on-air">ON AIR</button>
+              </div>
+              <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-danger" value="switchboard-off-air">CLOSE</button>
+                <button type="button" class="btn btn-success" value="switchboard-on-air">OPEN</button>
+              </div>
             </div>
           </div>
         </div>
 
-        <div class="col">
+        <div id="group-2" class="col master-group">
           <div class="row">
             <div class="col-sm">
-              <h2>Delay</h2>
+              <h2>Delay <span>&#9679;</span></h2>
             </div>
-            <div id="group-2" class="col-sm">
-              <button type="button" class="btn btn-success btn-block" value="studiolight-on-air">ON AIR</button>
-              <button type="button" class="btn btn-danger btn-block" value="studiolight-off-air">OFF AIR</button>
+            <div class="col-sm">
+              <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-danger" value="studiolight-off-air">OFF AIR</button>
+                <button type="button" class="btn btn-success" value="studiolight-on-air">ON AIR</button>
+              </div>
+              <div class="btn-group btn-block" role="group" aria-label="Basic example">
+                <button type="button" class="btn btn-danger" value="switchboard-off-air">CLOSE</button>
+                <button type="button" class="btn btn-success" value="switchboard-on-air">OPEN</button>
+              </div>
             </div>
           </div>
         </div>
@@ -82,6 +94,7 @@
           <div class="volume progress">
             <div class="progress-bar" role="progressbar"></div>
           </div>
+          <p class="webrtc-status">🎷</p>
           <p class="studio-light"></p>
           <p class="vu">&#9679;</p>
           <div class="btn-group" role="group" aria-label="Basic example">

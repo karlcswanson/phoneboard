@@ -59,11 +59,17 @@ class SocketHandler(websocket.WebSocketHandler):
             for ch in jk_audio.data_update_list:
                 out['data-update'].append(ch.ch_json())
 
+        if groups.group_update_list:
+            out['group-update'] = []
+            for group in groups.group_update_list:
+                out['group-update'].append(group.group_json_mini())
+
         if out:
             data = json.dumps(out)
             cls.broadcast(data)
 
         del jk_audio.data_update_list[:]
+        del groups.group_update_list[:]
 
 
 class ChannelAPIHandler(web.RequestHandler):
@@ -141,6 +147,10 @@ class GroupAPIHandler(web.RequestHandler):
                 group.set_studio_light('OFF-AIR')
             if cmd == 'studiolight-on-air':
                 group.set_studio_light('ON-AIR')
+            if cmd == 'switchboard-off-air':
+                group.change_switchboard_status('off-air')
+            if cmd == 'switchboard-on-air':
+                group.change_switchboard_status('on-air')
 
         self.set_header('Content-Type', 'application/json')
         self.write(json_out)

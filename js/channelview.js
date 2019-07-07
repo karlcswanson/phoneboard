@@ -157,7 +157,7 @@ function buttonSetup() {
   });
 
   $('#mastercontrol .col-sm .btn').on('click', function (e) {
-    const id = $(this).closest('.col-sm').attr('id').replace(/[^\d.]/g, '');
+    const id = $(this).closest('.master-group').attr('id').replace(/[^\d.]/g, '');
     const cmd = $(this).val();
 
     console.log("cmd: " + cmd + " ID: " + id);

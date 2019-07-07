@@ -4,16 +4,21 @@ import Twilio from 'twilio-client';
 export function activateTwiliowebRTC() {
   $('.studio-light').on('click', function (e) {
     const id = parseInt($(this).closest('.col-sm').attr('id').replace(/[^\d.]/g, ''));
-
-    if (!phoneboard.channels[id].device) {
-      startCall(id);
-    }
-    else {
-      endCall(id);
-    }
+    buttonClicked(id);
   });
 }
 
+function buttonClicked(id){
+  const slotSelector = document.getElementById('slot-' + id);
+
+  if (!phoneboard.channels[id].device) {
+    startCall(id);
+  }
+  else {
+    console.log(phoneboard.channels[id].connection);
+    phoneboard.channels[id].connection.disconnect();
+  }
+}
 
 function startCall(id) {
   let channel = phoneboard.channels[id];
@@ -38,15 +43,17 @@ function startCall(id) {
       const slotSelector = document.getElementById('slot-' + id);
 
       channel.device.on('ready', function(d){
-        channel.device.connect(call_params);
+        channel.connection = channel.device.connect(call_params);
       });
 
-      channel.device.on('connect', function(conn){
+      channel.device.on('connect', function(conn) {
         setVolume(conn, slotSelector);
       });
 
-      channel.device.on('disconnect', function(conn){
-        endCall(id);
+      channel.device.on('disconnect', function(conn) {
+        channel.device.destroy();
+        delete channel.device;
+        endCall(slotSelector);
       });
 
 
@@ -59,6 +66,7 @@ function startCall(id) {
 }
 
 function setVolume(connection, slotSelector) {
+  slotSelector.querySelector('.webrtc-status').style.display = 'block';
   connection.on('volume', function(inputVolume, outputVolume){
     let width = outputVolume * 100.;
     width = width + '%';
@@ -67,14 +75,9 @@ function setVolume(connection, slotSelector) {
 }
 
 
-function endCall(id) {
-  let channel = phoneboard.channels[id];
-  channel.device.disconnectAll();
-  channel.device.destroy();
-  delete channel.device;
-
-  const slotSelector = document.getElementById('slot-' + id);
+function endCall(slotSelector) {
   slotSelector.querySelector('.volume .progress-bar').style.width = '0%';
+  slotSelector.querySelector('.webrtc-status').style.display = 'none';
 }
 
 function generateConferenceName(name) {
