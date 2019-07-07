@@ -41,7 +41,7 @@ def codec_query_service():
 
                 if conf:
                     if channel.studio_light == 'ON-AIR' and conf.status() in ['OPEN', 'DISCONNECTED']:
-                        if time.time() - channel.hook_tstamp > 20:
+                        if (time.time() - channel.hook_tstamp) > 20:
                             channel.drop()
 
                     if channel.studio_light == 'OFF-AIR' and conf.status() in ['OPEN', 'CONNECTED']:

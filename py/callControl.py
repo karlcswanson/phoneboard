@@ -128,7 +128,7 @@ def get_selected_language_mp3(group, digit):
         return 'http://twilio.willowcreek.org/mp3/{}.mp3'.format(
             'live' + languages[digit])
 
-    if group['title'] == 'Delay Sites':
+    if group['title'] == 'Delayed Sites':
         return 'http://twilio.willowcreek.org/mp3/{}.mp3'.format(
             'delayed' + languages[digit])
 
@@ -136,7 +136,7 @@ def get_conference_name(group, digit):
     if group['title'] == 'Live Sites':
         return languages[digit]
 
-    if group['title'] == 'Delay Sites':
+    if group['title'] == 'Delayed Sites':
         return '{}delay'.format(languages[digit])
 
 
