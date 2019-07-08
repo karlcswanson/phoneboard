@@ -3,7 +3,7 @@ import urllib.parse
 import urllib.request
 import time
 import json
-from config import config_tree
+import config
 
 
 import jk_audio
@@ -72,7 +72,7 @@ class Group:
             return 'unknown'
 
     def change_switchboard_status(self, status):
-        url = 'http://phoneboard.willowcreek.org/conference/control'
+        url = 'http://localhost:' + config.config_tree['switchboard_port']
         print(url)
         req = urllib.request.Request(url)
         if status in ['off-air', 'on-air']:
@@ -98,7 +98,7 @@ def get_group(group_number):
 
 
 def switchboard_status_query():
-    url = 'http://localhost:' + config_tree['switchboard_port']
+    url = 'http://localhost:' + config.config_tree['switchboard_port']
     print(url)
     req = urllib.request.Request(url)
 
