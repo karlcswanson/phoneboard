@@ -96,7 +96,7 @@ class ChannelAPIHandler(web.RequestHandler):
                 if conf:
                     conf.close_room()
 
-            if cmd == 'studio-light-disable':
+            if cmd == 'studiolight-disable':
                 ch.set_studio_light('DISABLED')
             if cmd == 'studiolight-off-air':
                 ch.set_studio_light('OFF-AIR')
@@ -134,7 +134,7 @@ class GroupAPIHandler(web.RequestHandler):
         json_out = {}
         group = groups.get_group(int(group_number))
         cmd = self.get_argument("cmd", default=None, strip=False)
-        studio_light = self.get_argument("studio_light", default=None, strip=False)
+
         if group:
             if cmd == 'call':
                 group.call()
@@ -147,10 +147,24 @@ class GroupAPIHandler(web.RequestHandler):
                 group.set_studio_light('OFF-AIR')
             if cmd == 'studiolight-on-air':
                 group.set_studio_light('ON-AIR')
+
             if cmd == 'switchboard-off-air':
                 group.change_switchboard_status('off-air')
             if cmd == 'switchboard-on-air':
                 group.change_switchboard_status('on-air')
+
+            if cmd == 'mastercontrol-off-air':
+                group.set_studio_light('OFF-AIR')
+                group.change_switchboard_status('off-air')
+
+            if cmd == 'mastercontrol-queue':
+                group.set_studio_light('DISABLED')
+                group.change_switchboard_status('on-air')
+
+            if cmd == 'mastercontrol-on-air':
+                group.set_studio_light('ON-AIR')
+                group.change_switchboard_status('on-air')
+
 
         self.set_header('Content-Type', 'application/json')
         self.write(json_out)

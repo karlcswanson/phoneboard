@@ -5,80 +5,80 @@ function updateName(slotSelector, data) {
   slotSelector.querySelector('p.name').innerHTML = data.name;
 }
 
-function updateStatus(slotSelector, data){
+function updateStatus(slotSelector, data) {
   slotSelector.querySelector('div.channel_name').className = 'channel_name';
   slotSelector.querySelector('div.channel_name').classList.add(data.status);
 }
 
-function updateCodecStatus(slotSelector, data){
+function updateCodecStatus(slotSelector, data) {
   slotSelector.querySelector('p.codec-status').className = 'codec-status';
   slotSelector.querySelector('p.codec-status').classList.add(data.codec_status);
 }
 
-function updateCodecTime(slotSelector, data){
+function updateCodecTime(slotSelector, data) {
   slotSelector.querySelector('p.codec-time').innerHTML = data.call_time;
 }
 
-function updateCodecDrop(slotSelector, data){
+function updateCodecDrop(slotSelector, data) {
   slotSelector.querySelector('p.codec-drop').innerHTML = '';
 }
 
-function updateConferenceStatus(slotSelector, data){
+function updateConferenceStatus(slotSelector, data) {
   slotSelector.querySelector('p.conference-status').className = 'conference-status';
   slotSelector.querySelector('p.conference-status').classList.add(data.conf_status);
 }
 
-function updateConferenceTime(slotSelector, data){
+function updateConferenceTime(slotSelector, data) {
   slotSelector.querySelector('p.conference-time').innerHTML = data.conf_time;
 }
 
-function updateConferenceSize(slotSelector, data){
+function updateConferenceSize(slotSelector, data) {
   slotSelector.querySelector('p.conference-size span').innerHTML = data.conf_count;
 }
 
-function updateStudioLight(slotSelector, data){
+function updateStudioLight(slotSelector, data) {
   slotSelector.querySelector('p.studio-light').innerHTML = data.studio_light.replace('-', ' ');
   slotSelector.querySelector('p.studio-light').className = 'studio-light';
   slotSelector.querySelector('p.studio-light').classList.add(data.studio_light);
 }
 
-function updateIP(slotSelector, data){
+function updateIP(slotSelector, data) {
   slotSelector.querySelector('p.codec-status a').href = 'http://' + data.ip;
 }
 
-function updateDrops(slotSelector, data){
+function updateDrops(slotSelector, data) {
   slotSelector.querySelector('p.codec-drop span').innerHTML = data.drops;
 }
 
 function updateViewOnly(slotSelector, data) {
-  if('name' in data){
+  if ('name' in data) {
     updateName(slotSelector, data);
   }
-  if('status' in data){
+  if ('status' in data){
     updateStatus(slotSelector, data);
   }
-  if('codec_status' in data){
+  if ('codec_status' in data) {
     updateCodecStatus(slotSelector, data);
   }
-  if('call_time' in data){
+  if ('call_time' in data) {
     updateCodecTime(slotSelector, data);
   }
-  if('conf_status' in data){
+  if ('conf_status' in data) {
     updateConferenceStatus(slotSelector, data);
   }
-  if('conf_time' in data){
+  if ('conf_time' in data) {
     updateConferenceTime(slotSelector, data);
   }
-  if('conf_count' in data){
+  if ('conf_count' in data) {
     updateConferenceSize(slotSelector, data);
   }
-  if('studio_light' in data){
+  if ('studio_light' in data) {
     updateStudioLight(slotSelector, data);
   }
-  if('ip' in data){
+  if ('ip' in data) {
     updateIP(slotSelector, data);
   }
-  if('drops' in data){
+  if ('drops' in data) {
     updateDrops(slotSelector, data);
   }
 }
@@ -185,9 +185,9 @@ function infoToggle() {
 
 
 
-export function renderChannels(){
+export function renderChannels() {
   // TODO Match from group config file
-  for(let i = 1; i <= 4; i++) {
+  for(let i = 1; i <= 4; i += 1) {
     let t;
     t = document.getElementById('channel-template').content.cloneNode(true);
     t.querySelector('div.col-sm').id = 'slot-' + i;
@@ -204,7 +204,7 @@ export function renderChannels(){
     updateViewOnly(t, phoneboard.channels[i]);
     document.getElementById('delay-row').appendChild(t);
   }
-  $('#phoneboard .col-sm .btn-group').toggle();
+  $('.btn-test-group').toggle();
   $('#mastercontrol').toggle();
   buttonSetup();
   infoToggle();

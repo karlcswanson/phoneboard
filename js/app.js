@@ -18,13 +18,12 @@ phoneboard.connectionStatus = 'CONNECTING'
 phoneboard.channels = [];
 
 
-
-function updateClock(){
-  let time = moment();
-  document.querySelector('#et .time').innerHTML = time.tz("America/New_York").format('hh:mm:ss')
-  document.querySelector('#ct .time').innerHTML = time.tz("America/Chicago").format('hh:mm:ss')
-  document.querySelector('#mt .time').innerHTML = time.tz("America/Denver").format('hh:mm:ss')
-  document.querySelector('#pt .time').innerHTML = time.tz("America/Los_Angeles").format('hh:mm:ss')
+function updateClock() {
+  const time = moment();
+  document.querySelector('#et .time').innerHTML = time.tz('America/New_York').format('hh:mm:ss');
+  document.querySelector('#ct .time').innerHTML = time.tz('America/Chicago').format('hh:mm:ss');
+  document.querySelector('#mt .time').innerHTML = time.tz('America/Denver').format('hh:mm:ss');
+  document.querySelector('#pt .time').innerHTML = time.tz('America/Los_Angeles').format('hh:mm:ss');
 }
 
 
@@ -38,15 +37,15 @@ function toggleFullScreen() {
 }
 
 
-function toggleControls(){
-  $('#phoneboard .col-sm .btn-group').toggle(400);
+function toggleControls() {
+  $('.btn-test-group').toggle(400);
 }
 
-function toggleClockboard(){
+function toggleClockboard() {
   $('#clockboard').toggle(400);
 }
 
-function toggleMastercontrol(){
+function toggleMastercontrol() {
   $('#mastercontrol').toggle(400);
 }
 
@@ -72,12 +71,8 @@ function keybindings() {
     if (e.keyCode === 76) {
       toggleMastercontrol();
     }
-
-
-
   }, false);
 }
-
 
 
 $(document).ready(() => {
@@ -86,5 +81,4 @@ $(document).ready(() => {
   keybindings();
 
   setInterval(updateClock, 300);
-
 });
