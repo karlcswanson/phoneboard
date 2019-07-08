@@ -9,19 +9,18 @@ html,body {
   height: 100%
 }
 
-#phoneboard .row {
-  padding-top: 50px;
-  // padding-bottom:25px;
+#phoneboard .col-sm {
+  padding-top: 1.5vw;
 }
 
 #mastercontrol {
-  padding-top: 25px;
+  padding-top: 1.75vw;
 }
 
 #mastercontrol .col {
   background: var(--color-black);
-  margin-left: 20px;
-  margin-right: 20px;
+  margin-left: .75vw;
+  margin-right: .75vw;
   padding: 1em;
   border-radius: 12px;
 }
@@ -32,10 +31,17 @@ html,body {
 
 #mastercontrol h2 {
   color: var(--color-white);
-  font-size: 4rem;
+  font-size: 3.5vw;
   font-family: 'IBM Plex Sans';
   font-weight: 800;
+  margin-bottom: 0px;
 }
+
+#mastercontrol h2 a {
+  color: var(--color-white);
+  text-decoration: none;
+}
+
 .card {
   background-color: var(--color-black);
   border: 1px solid var(--color-shadow);
@@ -51,26 +57,33 @@ h3 {
 #clockboard {
   // height: 200px;
   background: var(--color-black);
-  padding-top: 25px;
-  padding-bottom: 25px;
+
+}
+
+#clockboard .col-sm {
+  margin-top: 1.5vw;
+  margin-bottom: 1.5vw;
+  // padding-top: 2vw;
 }
 
 .clock-box {
   background: black;
+  border-radius: 12px;
 }
 
 .time {
   font-family: 'IBM Plex Mono';
-  font-weight: 200;
-  font-size: 3em;
+  font-weight: 400;
+  font-size: 3vw;
   font-style: italic;
   color: var(--color-white);
+  margin-bottom: 0px;
 }
 
 .zone {
   font-family: 'IBM Plex Sans';
-  font-weight: 400;
-  font-size: 1.5em;
+  font-weight: 200;
+  font-size: 1.5vw;
   margin-bottom: 0px;
 }
 
@@ -87,9 +100,10 @@ h3 {
   flex: 1 1 0;
   width: 0;
   padding: 0px;
-  margin-left: 20px;
-  margin-right: 20px;
-  min-width: 256px;
+  margin-left: .75vw;
+  margin-right: .75vw;
+  // min-width: 256px;
+  min-width: 245px;
 }
 
 .channel_name {
@@ -103,21 +117,21 @@ h3 {
 .name {
   font-family: 'IBM Plex Sans';
   font-weight: bold;
-  font-size: 2.5em;
+  font-size: 2.5vw;
   margin-bottom: 0px;
 }
 
 .info-drawer {
   background-color: var(--color-black);
   border: .5px;
-  border-color: var(--color-white);
+  border-color: var(--color-gray);
   border-style: solid;
-  padding: 0em 1em 1em 1em;
+  padding: 0em 1vw 0em 1em;
   // height: 240px;
 }
 
 .info-drawer p{
-  margin-bottom: .75rem;
+  margin-bottom: .75em;
 }
 
 .info-drawer .row{
@@ -127,7 +141,8 @@ h3 {
 .codec-time, .conference-time {
   font-family: 'IBM Plex Mono';
   font-weight: 100;
-  font-size: 1.5em;
+  // font-size: 1.5em;
+  font-size: 1.25vw;
   font-style: italic;
 }
 
@@ -140,7 +155,8 @@ h3 {
 
 .codec-status, .conference-status {
   font-family: 'IBM Plex Mono';
-  font-size: 1.5em;
+  // font-size: 1.5em;
+  font-size: 1.5vw;
   // font-weight: bold;
 }
 
@@ -151,7 +167,8 @@ h3 {
 .codec-drop, .conference-size {
   font-family: 'IBM Plex Mono';
   // font-weight: 100;
-  font-size: 1.5em;
+  // font-size: 1.5em;
+  font-size: 1.5vw;
 }
 
 
@@ -210,7 +227,8 @@ p.UNKNOWN span {
   font-family: 'IBM Plex Sans';
   font-weight: 500;
   // font-style: italic;
-  font-size: 2em;
+  // font-size: 2em;
+  font-size: 2vw;
   text-align: center!important;
   margin-bottom: 0px;
 }
@@ -257,7 +275,7 @@ p.UNKNOWN span {
 
 
 .volume {
-  height: 10px;
+  height: .75vh;
   width: 100%;
   background: var(--color-white);
   border-radius: 0px;
@@ -279,18 +297,50 @@ p.UNKNOWN span {
   display: none;
 }
 
+@media (max-width: 1024px) {
+  .col-sm {
+    min-width: 200px;
+    margin-right: .5vw;
+    margin-left: .5vw;
+  }
+  #mastercontrol .col {
+    margin-left: .5vw;
+    margin-right: .5vw;
+  }
+}
+
 @media (max-width: 512px) {
+  #clockboard {
+    display: none;
+  }
+
   #phoneboard .col-sm .channel_name{
     border-width: 0;
     border-radius: 0px;
+  }
+
+  #mastercontrol h2{
+    font-size: 3em;
+  }
+
+  .name {
+    font-size: 2.5em;
   }
 
   .info-drawer {
     display: none;
   }
 
+  .info-drawer p {
+    font-size: 1.5em;
+  }
+
   .studio-light-box {
     display: none;
+  }
+
+  .studio-light {
+    font-size: 3em;
   }
 
   #delay-row {
@@ -306,5 +356,12 @@ p.UNKNOWN span {
     // border-radius: 12px;
     // padding-left: 1em;
     // padding-right: 1em;
+  }
+
+  #phoneboard .col-sm {
+    margin-left: 0px;
+    margin-right: 0px;
+    padding-top: 0px;
+    min-width: 256px;
   }
 }

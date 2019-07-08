@@ -205,7 +205,7 @@ export function renderChannels() {
     document.getElementById('delay-row').appendChild(t);
   }
   $('.btn-test-group').toggle();
-  $('#mastercontrol').toggle();
+  $('#mastercontrol .btn-mastercontrol').toggle();
   buttonSetup();
   infoToggle();
   activateTwiliowebRTC();

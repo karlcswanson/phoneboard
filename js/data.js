@@ -68,6 +68,8 @@ function wsConnect() {
 
 function ActivateMessageBoard() {
   $('#phoneboard').hide();
+  $('#clockboard').hide();
+  $('#mastercontrol').hide();
   $('.message-board').show();
   setInterval(checkReconnect, 1000);
 }

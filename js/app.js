@@ -47,7 +47,7 @@ function toggleClockboard() {
 }
 
 function toggleMastercontrol() {
-  $('#mastercontrol').toggle(400);
+  $('#mastercontrol .btn-mastercontrol').toggle(400);
 }
 
 
