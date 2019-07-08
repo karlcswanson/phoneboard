@@ -147,7 +147,7 @@ function buttonSetup() {
 
     console.log("cmd: " + cmd + " ID: " + id);
 
-    let url = "/api/channel/" + id + "?cmd=" + cmd
+    let url = "api/channel/" + id + "?cmd=" + cmd
     console.log(url);
 
 
@@ -162,7 +162,7 @@ function buttonSetup() {
 
     console.log("cmd: " + cmd + " ID: " + id);
 
-    let url = "/api/group/" + id + "?cmd=" + cmd
+    let url = "api/group/" + id + "?cmd=" + cmd
     console.log(url);
 
 
