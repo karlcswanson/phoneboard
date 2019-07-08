@@ -72,7 +72,7 @@ class Group:
             return 'unknown'
 
     def change_switchboard_status(self, status):
-        url = 'http://localhost:' + config.config_tree['switchboard_port']
+        url = 'http://localhost:{}'.format(config.config_tree['switchboard_port'])
         print(url)
         req = urllib.request.Request(url)
         if status in ['off-air', 'on-air']:
@@ -98,7 +98,7 @@ def get_group(group_number):
 
 
 def switchboard_status_query():
-    url = 'http://localhost:' + config.config_tree['switchboard_port']
+    url = 'http://localhost:{}'.format(config.config_tree['switchboard_port'])
     print(url)
     req = urllib.request.Request(url)
 
