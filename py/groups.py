@@ -100,9 +100,10 @@ def get_group(group_number):
 def switchboard_status_query():
     url = 'http://localhost:{}/conference/control'.format(config.config_tree['switchboard_port'])
     print(url)
-    req = urllib.request.Request(url)
+
 
     try:
+        req = urllib.request.Request(url)
         resp = urllib.request.urlopen(req, timeout=1)
 
         if resp.getcode() == 200:

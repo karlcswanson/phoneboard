@@ -15,12 +15,16 @@ conn = []
 conference_list = []
 
 
+
+
 class TwilioConnection:
     def __init__(self):
+        self.timestamp = time.time() - 60
         account_sid = config.config_tree['twilio']['account_sid']
         auth_token = config.config_tree['twilio']['auth_token']
 
         self.client = Client(account_sid, auth_token)
+
 
     def active_conferences(self):
         active_conference_list = []
@@ -29,7 +33,13 @@ class TwilioConnection:
             if conference.status in ['init', 'in-progress']:
                 active_conference_list.append(conference)
 
+        self.timestamp = time.time()
         return active_conference_list
+
+    def is_connected(self):
+        if (time.time() - self.timestamp) < TWILIO_TIMEOUT:
+            return True
+        return False
 
 
 class ConferenceRoom:
@@ -79,13 +89,16 @@ def twilio_query_service():
     while True:
         global conference_list
         c_list = []
-        conferences = conn.active_conferences()
-        for conference in conferences:
-            c_list.append(ConferenceRoom(conference))
+        try:
+            conferences = conn.active_conferences()
+            for conference in conferences:
+                c_list.append(ConferenceRoom(conference))
 
-        conference_list = c_list
-        for c in conference_list:
-            print(c.conference_json())
+            conference_list = c_list
+            for c in conference_list:
+                print(c.conference_json())
+        except:
+            logging.warning('Unable to update conferences')
 
         time.sleep(5)
 

@@ -127,9 +127,14 @@ class CodecChannel:
                 'conf_status': conf.status(), 'conf_time': conf.call_time(),
                 'conf_name': conf.name, 'conf_count': conf.call_count
             }
-        else:
+        elif twilio_api.conn.is_connected():
             conf_out = {
                 'conf_status': 'DISCONNECTED', 'conf_time': '--:--:--',
+                'conf_name': '', 'conf_count': 0
+            }
+        else:
+            conf_out = {
+                'conf_status': 'UNKNOWN', 'conf_time': '--:--:--',
                 'conf_name': '', 'conf_count': 0
             }
         json_out.update(conf_out)
