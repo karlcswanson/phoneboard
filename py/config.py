@@ -8,7 +8,7 @@ import argparse
 import jk_audio
 import groups
 import twilio_api
-import influxdb_api
+# import influxdb_api
 
 APPNAME = 'phoneboard'
 
@@ -116,7 +116,7 @@ def config():
     create_codecs()
     create_groups()
     twilio_api.twilio_setup()
-    influxdb_api.setup()
+    # influxdb_api.setup()
     logging.info('Starting Phoneboard {}'.format(config_tree['phoneboard_version']))
 
 

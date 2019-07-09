@@ -3,7 +3,7 @@ import logging
 
 from codec import Codec
 from channel import data_update_list
-import influxdb_api
+# import influxdb_api
 
 audio_codecs = []
 
