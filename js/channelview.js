@@ -187,7 +187,7 @@ function infoToggle() {
 
 export function renderChannels() {
   // TODO Match from group config file
-  for(let i = 1; i <= 4; i += 1) {
+  for (let i = 1; i <= 4; i += 1) {
     let t;
     t = document.getElementById('channel-template').content.cloneNode(true);
     t.querySelector('div.col-sm').id = 'slot-' + i;
@@ -197,7 +197,7 @@ export function renderChannels() {
   }
 
 
-  for(let i = 5; i <= 8; i++) {
+  for (let i = 5; i <= 8; i++) {
     let t;
     t = document.getElementById('channel-template').content.cloneNode(true);
     t.querySelector('div.col-sm').id = 'slot-' + i;

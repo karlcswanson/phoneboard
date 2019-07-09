@@ -31,7 +31,7 @@ html,body {
 
 #mastercontrol h2 {
   color: var(--color-white);
-  font-size: 3.5vw;
+  font-size: calc(1.5em + 3vw);
   font-family: 'IBM Plex Sans';
   font-weight: 800;
   margin-bottom: 0px;
@@ -126,13 +126,13 @@ h3 {
   border: .5px;
   border-color: var(--color-gray);
   border-style: solid;
-  padding: 0em 1vw 0em 1em;
+  padding: 0em 1vw 1em 1em;
   // height: 240px;
 }
 
-.info-drawer p{
-  margin-bottom: .75em;
-}
+// .info-drawer p{
+//   margin-bottom: .75em;
+// }
 
 .info-drawer .row{
   padding-top: 0px;
@@ -169,6 +169,7 @@ h3 {
   // font-weight: 100;
   // font-size: 1.5em;
   font-size: 1.5vw;
+  margin-bottom: 0px;
 }
 
 
@@ -291,11 +292,16 @@ p.UNKNOWN span {
 
 .webrtc-status {
   position: absolute;
-  left: 15px;
-  top: 10px;
-  font-size: 1.5em;
+  left: 1vw;
+  top: .25vw;
+  font-size: 2vw;
   display: none;
 }
+
+.flexfix {
+  background-color: var(--color-background);
+}
+
 
 @media (max-width: 1024px) {
   .col-sm {
@@ -341,6 +347,14 @@ p.UNKNOWN span {
 
   .studio-light {
     font-size: 3em;
+  }
+
+  .webrtc-status {
+    position: absolute;
+    left: 15px;
+    top: 10px;
+    font-size: 1.5em;
+    display: none;
   }
 
   #delay-row {
