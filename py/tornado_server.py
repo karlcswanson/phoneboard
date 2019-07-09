@@ -23,7 +23,7 @@ class JsonHandler(web.RequestHandler):
             codecs.append(codec.codec_json())
 
         json_out = json.dumps({
-            'config': config.config_tree, 'codecs': codecs
+            'codecs': codecs
         }, sort_keys=True, indent=4)
 
 
