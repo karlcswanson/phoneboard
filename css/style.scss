@@ -27,8 +27,6 @@ html,body {
 
 
 
-
-
 #mastercontrol h2 {
   color: var(--color-white);
   font-size: calc(1.5em + 2vw);
@@ -276,7 +274,7 @@ p.UNKNOWN span {
 
 
 .volume {
-  height: .75vh;
+  height: calc(.5em + .25vw);
   width: 100%;
   background: var(--color-white);
   border-radius: 0px;
