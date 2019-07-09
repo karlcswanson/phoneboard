@@ -19,8 +19,8 @@ html,body {
 
 #mastercontrol .col {
   background: var(--color-black);
-  margin-left: .75vw;
-  margin-right: .75vw;
+  margin-left: calc(.5em + .25vw);
+  margin-right: calc(.5em + .25vw);
   padding: 1em;
   border-radius: 12px;
 }
@@ -98,8 +98,8 @@ h3 {
   flex: 1 1 0;
   width: 0;
   padding: 0px;
-  margin-left: .75vw;
-  margin-right: .75vw;
+  margin-left: calc(.5em + .25vw);
+  margin-right: calc(.5em + .25vw);
   // min-width: 256px;
   min-width: 245px;
 }
