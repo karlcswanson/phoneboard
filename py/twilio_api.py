@@ -94,12 +94,11 @@ def twilio_query_service():
             for conference in conferences:
                 c_list.append(ConferenceRoom(conference))
 
-            conference_list = c_list
-            for c in conference_list:
-                print(c.conference_json())
+
         except:
             logging.warning('Unable to update conferences')
 
+        conference_list = c_list
         time.sleep(5)
 
 
