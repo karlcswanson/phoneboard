@@ -1,0 +1,14 @@
+[Unit]
+Description=switchboard Service
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/python3 -u py/switchboard.py
+WorkingDirectory=/home/phoneboard/phoneboard
+StandardOutput=inherit
+StandardError=inherit
+Restart=always
+User=phoneboard
+
+[Install]
+WantedBy=multi-user.target
