@@ -10,11 +10,13 @@ html,body {
 }
 
 #phoneboard .col-sm {
-  padding-top: 1.5vw;
+  // padding-top: 1.5vw;
+  padding-top: calc(1em + .75vw);
 }
 
 #mastercontrol {
-  padding-top: 1.75vw;
+  // padding-top: 1.75vw;
+  padding-top: calc(1em + .75vw);
 }
 
 #mastercontrol .col {
@@ -59,8 +61,10 @@ h3 {
 }
 
 #clockboard .col-sm {
-  margin-top: 1.5vw;
-  margin-bottom: 1.5vw;
+  // margin-top: 1.5vw;
+  // margin-bottom: 1.5vw;
+  margin-top: calc(1em + .75vw);
+  margin-bottom: calc(1em + .75vw);
   // padding-top: 2vw;
 }
 
