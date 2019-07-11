@@ -20,7 +20,7 @@ function randomNumber() {
 }
 
 function endCall() {
-  document.getElementById('vu').style.width = '0%';
+  document.getElementById('vu').style.height = '0%';
   $('#disconnect').hide();
   $('#connect').show();
 }
