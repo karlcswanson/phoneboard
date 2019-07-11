@@ -7,6 +7,7 @@ module.exports = {
   mode: 'development',
   entry: {
     app: ['whatwg-fetch', './js/app.js'],
+    live: ['whatwg-fetch', './js/live.js'],
   },
   output: {
     path: path.resolve(__dirname, 'static'),
