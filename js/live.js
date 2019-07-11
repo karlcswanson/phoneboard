@@ -21,8 +21,8 @@ function randomNumber() {
 
 function endCall() {
   document.getElementById('vu').style.width = '0%';
-  $('#end').hide();
-  $('#listen').show();
+  $('#disconnect').hide();
+  $('#connect').show();
 }
 
 function setVolume(connection) {
@@ -57,8 +57,8 @@ function startCall(voiceChannel) {
       });
 
       TwilioDevice.on('connect', (conn) => {
-        $('#listen').hide();
-        $('#end').show();
+        $('#connect').hide();
+        $('#disconnect').show();
         setVolume(conn);
       });
 
@@ -86,18 +86,18 @@ function randomVU() {
 
 
 function initWebRTC() {
-  $('#listen').on('click', () => {
+  $('#connect').on('click', () => {
     const channel = $('#chooser :selected').val();
     startCall(channel);
   });
 
-  $('#end').on('click', () => {
+  $('#disconnect').on('click', () => {
     TwilioConnection.disconnect();
   });
 }
 
 $(document).ready(() => {
-  $('#end').hide();
+  $('#disconnect').hide();
   // setInterval(randomVU, 100);
   initWebRTC();
   console.log('hello!');
