@@ -41,12 +41,21 @@ def codec_query_service():
 
                 if conf:
                     if channel.studio_light == 'ON-AIR' and conf.status() in ['OPEN', 'DISCONNECTED']:
-                        if (time.time() - channel.hook_tstamp) > 20:
-                            channel.drop()
+                        if channel.hook_status == 'CONNECTED':
+                            if (time.time() - channel.call_start) > 20:
+                                channel.drop()
 
                     if channel.studio_light == 'OFF-AIR' and conf.status() in ['OPEN', 'CONNECTED']:
                         conf.close_room()
 
+                if not conf and channel.studio_light == 'ON-AIR':
+                    if channel.hook_status == 'CONNECTED':
+                        if (time.time() - channel.call_start) > 20:
+                            channel.drop()
+
+                # if channel.studio_light == 'ON-AIR' and channel.hook_status == 'CONNECTED':
+                #     if (time.time() - channel.call_start) > 14400:
+                #         channel.drop()
                 # influxdb_api.influx_send_channel(channel)
 
         time.sleep(1)
