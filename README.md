@@ -39,10 +39,16 @@ There are additional manual controls for phoneboard.  These are availible for te
 ## Keyboard Shortcuts
 * <kbd>esc</kbd> - Reload
 * <kbd>1</kbd>...<kbd>8</kbd> - Monitor conference channel
+* <kbd>0</kbd> - End all WebRTC calls
 * <kbd>c</kbd> - Toggle clocks
 * <kbd>e</kbd> - Toggle manual controls
 * <kbd>f</kbd> - Toggle fullscreen
 * <kbd>l</kbd> - Toggle mastercontrol
+
+## Call Monitoring
+Using the Twilio WebRTC API, calls can be monitored within phoneboard.  Pressing <kbd>1</kbd>...<kbd>8</kbd> or clicking on the ON-AIR text will dial into the corresponding conference.  🎷 indicates a current WebRTC call.
+
+On mobile devices, clicking **Live** and **Delay** dials the conference line for monitoring.
 
 ## Switchboard
 Switchboard is a separate web server that serves TwiML for Twilio.  The Twilio service submits data to switchboard via a POST request.  TwiML supplied by Switchboard directs Twilio on how to route calls from the JK Audio codecs and phone calls to the DID numbers.
