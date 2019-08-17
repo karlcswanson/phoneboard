@@ -3,7 +3,7 @@ Phoneboard manages Twilio hosted conference calls and JK Audio AutoHybrid IP2 de
 
 
 ## Screenshots
-|                    Desktop                     |                  Phone                   |
+|                    Desktop                     |                  Mobile                  |
 |:----------------------------------------------:|:----------------------------------------:|
 | ![phoneboard desktop](docs/img/phoneboard.png) | ![phoneboard mobile](docs/img/phone.png) |
 
@@ -17,7 +17,10 @@ Phoneboard manages Twilio hosted conference calls and JK Audio AutoHybrid IP2 de
 ### Manual Controls
 There are additional manual controls for phoneboard.  These are availible for testing individual codec and Twilio API functions.
 
-![phoneboard control](docs/img/manual_controls.png)
+<!-- ![phoneboard control](docs/img/manual_controls.png) -->
+<p align="center">
+  <img height="300px" src="docs/img/manual_controls.png">
+</p>
 
 Access additional controls by pressing <kbd>e</kbd>.
 ##### Watchdog Controls
