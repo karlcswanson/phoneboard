@@ -21,10 +21,10 @@ phoneboard.channels = [];
 
 function updateClock() {
   const time = moment();
-  document.querySelector('#et .time').innerHTML = time.tz('America/New_York').format('hh:mm:ss');
-  document.querySelector('#ct .time').innerHTML = time.tz('America/Chicago').format('hh:mm:ss');
-  document.querySelector('#mt .time').innerHTML = time.tz('America/Denver').format('hh:mm:ss');
   document.querySelector('#pt .time').innerHTML = time.tz('America/Los_Angeles').format('hh:mm:ss');
+  document.querySelector('#mt .time').innerHTML = time.tz('America/Denver').format('hh:mm:ss');
+  document.querySelector('#ct .time').innerHTML = time.tz('America/Chicago').format('hh:mm:ss');
+  document.querySelector('#et .time').innerHTML = time.tz('America/New_York').format('hh:mm:ss');
 }
 
 
