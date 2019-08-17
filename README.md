@@ -13,18 +13,19 @@ Phoneboard manages Twilio hosted conference calls and JK Audio AutoHybrid IP2 de
 
 <kbd>l</kbd> brings up the main controls for phoneboard.  Groups of codecs and calls can be controlled with OFF-AIR, Queue, and ON-AIR.
 
+* **OFF-AIR** - Set all channels to OFF-AIR.  This ends any existing codec calls and Twilio conferences.  Callers are instructed to redial 15 minutes before the conference.
+* **Queue** - Opens up lines.  Callers are prompted for a room to join and placed on hold once the conference starts.
+* **ON-AIR** - Set all channels to ON-AIR.  If disconnected, codecs will redial.
 
 ### Manual Controls
-There are additional manual controls for phoneboard.  These are availible for testing individual codec and Twilio API functions.
+There are additional manual controls for phoneboard.  These are availible for testing individual codec and Twilio API functions.  These can be accessed by pressing <kbd>e</kbd>.
 
-<!-- ![phoneboard control](docs/img/manual_controls.png) -->
 <p align="center">
   <img height="300px" src="docs/img/manual_controls.png">
 </p>
 
-Access additional controls by pressing <kbd>e</kbd>.
 ##### Watchdog Controls
-* **Disabled** - Disables the watchdog for that channel. The * codec is left in its current state.
+* **Disabled** - Disables the watchdog for that channel. The codec is left in its current state.
 * **OFF AIR** - Ends the Twilio conference via the Twilio API and drops the call on the codec.
 * **ON AIR** - Dials the codec and redials once a call is dropped.
 
@@ -42,6 +43,9 @@ Access additional controls by pressing <kbd>e</kbd>.
 * <kbd>e</kbd> - Toggle manual controls
 * <kbd>f</kbd> - Toggle fullscreen
 * <kbd>l</kbd> - Toggle mastercontrol
+
+## Switchboard
+Switchboard is a separate web server that serves TwiML for Twilio.  The Twilio service submits data to switchboard via a POST request.  TwiML supplied by Switchboard directs Twilio on how to route calls from the JK Audio codecs and phone calls to the DID numbers.
 
 ## Installation
 Download phoneboard from github
