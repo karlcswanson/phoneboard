@@ -3,8 +3,7 @@ Phoneboard manages Twilio hosted conference calls and JK Audio AutoHybrid IP2 de
 
 
 ## Screenshots
-![phoneboard desktop](docs/img/phoneboard.png)
-![phoneboard mobile](docs/img/phone.png)
+![phoneboard desktop](docs/img/phoneboard.png) ![phoneboard mobile](docs/img/phone.png)
 
 
 ## Controlling Phoneboard
