@@ -18,7 +18,7 @@ Phoneboard manages Twilio hosted conference calls and JK Audio AutoHybrid IP2 de
 * **ON-AIR** - Set all channels to ON-AIR.  If disconnected, codecs will redial.
 
 ### Manual Controls
-There are additional manual controls for phoneboard.  These are availible for testing individual codec and Twilio API functions.  These can be accessed by pressing <kbd>e</kbd>.
+There are additional manual controls for phoneboard.  These are available for testing individual codec and Twilio API functions.  These can be accessed by pressing <kbd>e</kbd>.
 
 <p align="center">
   <img height="300px" src="docs/img/manual_controls.png">
@@ -32,6 +32,8 @@ There are additional manual controls for phoneboard.  These are availible for te
 ##### Codec Controls
 * **call** - Set codec to dial.
 * **drop** - set codec to drop call.
+
+Clicking `codec` opens the codec management page. 
 
 ##### Twilio Controls
 * **close** - Close conference via Twilio API.
