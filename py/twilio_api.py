@@ -4,6 +4,7 @@ import logging
 
 from twilio.rest import Client
 from twilio.rest.api.v2010.account.conference import ConferenceInstance
+from twilio.jwt.client import ClientCapabilityToken
 
 import config
 
@@ -14,12 +15,16 @@ conn = []
 conference_list = []
 
 
+
+
 class TwilioConnection:
     def __init__(self):
+        self.timestamp = time.time() - 60
         account_sid = config.config_tree['twilio']['account_sid']
         auth_token = config.config_tree['twilio']['auth_token']
 
         self.client = Client(account_sid, auth_token)
+
 
     def active_conferences(self):
         active_conference_list = []
@@ -28,7 +33,13 @@ class TwilioConnection:
             if conference.status in ['init', 'in-progress']:
                 active_conference_list.append(conference)
 
+        self.timestamp = time.time()
         return active_conference_list
+
+    def is_connected(self):
+        if (time.time() - self.timestamp) < TWILIO_TIMEOUT:
+            return True
+        return False
 
 
 class ConferenceRoom:
@@ -78,23 +89,38 @@ def twilio_query_service():
     while True:
         global conference_list
         c_list = []
-        conferences = conn.active_conferences()
-        for conference in conferences:
-            c_list.append(ConferenceRoom(conference))
+        try:
+            conferences = conn.active_conferences()
+            for conference in conferences:
+                c_list.append(ConferenceRoom(conference))
+
+
+        except:
+            logging.warning('Unable to update conferences')
 
         conference_list = c_list
-        for c in conference_list:
-            print(c.conference_json())
-
         time.sleep(5)
 
 
 def get_conference_by_name(name):
-    name = name.replace(' ', '').lower().replace('live','')
+    name = name.replace(' ', '').lower()
+    name = name.replace('live', '').replace('delayed', 'delay')
     for conference in conference_list:
         if conference.name == name:
             return conference
     return None
+
+def get_capability_token():
+    account_sid = config.config_tree['twilio']['account_sid']
+    auth_token = config.config_tree['twilio']['auth_token']
+    application_sid = config.config_tree['twilio']['webrtc_sid']
+
+    capability = ClientCapabilityToken(account_sid, auth_token)
+    capability.allow_client_outgoing(application_sid)
+    token = capability.to_jwt()
+    return token.decode("utf-8")
+
+
 
 def twilio_setup():
     global conn
@@ -103,10 +129,7 @@ def twilio_setup():
 def main():
     config.config()
     twilio_setup()
-
     twilio_query_service()
-
-
 
 
 if __name__ == '__main__':

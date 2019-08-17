@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+	<link rel="shortcut icon" type="image/png" href="favicon.png">
+	<link rel="apple-touch-icon" href="logo.png">
+
+	<title>GLS | Live Translation</title>
+
+</head>
+
+<body>
+	<div class="v-progress-box">
+		<div class="v-progress-bar" id="vu" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"></div>
+	</div>
+	<div class="container-fluid d-flex h-100">
+
+		<div class="row justify-content-center align-items-center">
+			<div class="col col-sm">
+					<div class="card m-auto">
+						<div class="card-body">
+					  	<img src="glsnext-white.png" class="card-img-top" alt="...">
+						</div>
+						<h3 class="card-title text-center">Live Translation</h3>
+
+					  <div class="card-body">
+							<h5 class="card-title">Select a language</h5>
+							<select id="chooser" class="form-control form-control-lg">
+  							<option value="spanish">Live Spanish</option>
+								<option value="chinese">Live Chinese</option>
+								<option value="korean">Live Korean</option>
+								<option value="french">Live French</option>
+								<option value="spanishdelay">Delay Spanish</option>
+								<option value="chinesedelay">Delay Chinese</option>
+								<option value="koreandelay">Delay Korean</option>
+								<option value="frenchdelay">Delay French</option>
+							</select>
+							<p class="card-text">
+								<a href="#" id="connect" class="btn btn-success btn-large btn-block">Connect</a>
+							  <a href="#" id="disconnect" class="btn btn-danger btn-large btn-block">Disconnect</a>
+							</p>
+					  </div>
+					</div>
+			</div>
+		</div>
+	</div>
+
+</body>
+<script>
+	if (typeof module === 'object') {
+		window.module = module;
+		module = undefined;
+	}
+</script>
+
+<script src="live.js"></script>
+<script>
+	if (window.module) module = window.module;
+</script>
+
+</html>

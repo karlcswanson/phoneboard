@@ -23,7 +23,7 @@ class JsonHandler(web.RequestHandler):
             codecs.append(codec.codec_json())
 
         json_out = json.dumps({
-            'config': config.config_tree, 'codecs': codecs
+            'codecs': codecs
         }, sort_keys=True, indent=4)
 
 
@@ -59,11 +59,17 @@ class SocketHandler(websocket.WebSocketHandler):
             for ch in jk_audio.data_update_list:
                 out['data-update'].append(ch.ch_json())
 
+        if groups.group_update_list:
+            out['group-update'] = []
+            for group in groups.group_update_list:
+                out['group-update'].append(group.group_json_mini())
+
         if out:
             data = json.dumps(out)
             cls.broadcast(data)
 
         del jk_audio.data_update_list[:]
+        del groups.group_update_list[:]
 
 
 class ChannelAPIHandler(web.RequestHandler):
@@ -90,7 +96,7 @@ class ChannelAPIHandler(web.RequestHandler):
                 if conf:
                     conf.close_room()
 
-            if cmd == 'studio-light-disable':
+            if cmd == 'studiolight-disable':
                 ch.set_studio_light('DISABLED')
             if cmd == 'studiolight-off-air':
                 ch.set_studio_light('OFF-AIR')
@@ -128,7 +134,7 @@ class GroupAPIHandler(web.RequestHandler):
         json_out = {}
         group = groups.get_group(int(group_number))
         cmd = self.get_argument("cmd", default=None, strip=False)
-        studio_light = self.get_argument("studio_light", default=None, strip=False)
+
         if group:
             if cmd == 'call':
                 group.call()
@@ -142,8 +148,33 @@ class GroupAPIHandler(web.RequestHandler):
             if cmd == 'studiolight-on-air':
                 group.set_studio_light('ON-AIR')
 
+            if cmd == 'switchboard-off-air':
+                group.change_switchboard_status('off-air')
+            if cmd == 'switchboard-on-air':
+                group.change_switchboard_status('on-air')
+
+            if cmd == 'mastercontrol-off-air':
+                group.set_studio_light('OFF-AIR')
+                group.change_switchboard_status('off-air')
+
+            if cmd == 'mastercontrol-queue':
+                group.set_studio_light('DISABLED')
+                group.change_switchboard_status('on-air')
+
+            if cmd == 'mastercontrol-on-air':
+                group.set_studio_light('ON-AIR')
+                group.change_switchboard_status('on-air')
+
+
         self.set_header('Content-Type', 'application/json')
         self.write(json_out)
+
+class webRTCTokenHandler(web.RequestHandler):
+    def get(self):
+        out = {}
+        out['auth_token'] = twilio_api.get_capability_token()
+        self.set_header('Content-Type', 'application/json')
+        self.write(json.dumps(out))
 
 def twisted():
     app = web.Application([
@@ -153,6 +184,7 @@ def twisted():
         (r'/api/channel/([0-9]+)', ChannelAPIHandler),
         (r'/api/group/([0-9]+)', GroupAPIHandler),
         (r'/api/conference/', ConferenceAPIHandler),
+        (r'/api/auth_token', webRTCTokenHandler),
         (r'/static/(.*)', web.StaticFileHandler, {'path': config.app_dir('static')})
     ])
     # https://github.com/tornadoweb/tornado/issues/2308

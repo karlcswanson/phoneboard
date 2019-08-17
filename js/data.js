@@ -52,6 +52,9 @@ function wsConnect() {
     if (data['data-update']) {
       data['data-update'].forEach(updateSlot);
     }
+    if (data['group-update']) {
+      data['group-update'].forEach(renderSwitchboardStatus);
+    }
   };
 
   phoneboard.socket.onclose = () => {
@@ -65,6 +68,8 @@ function wsConnect() {
 
 function ActivateMessageBoard() {
   $('#phoneboard').hide();
+  $('#clockboard').hide();
+  $('#mastercontrol').hide();
   $('.message-board').show();
   setInterval(checkReconnect, 1000);
 }
@@ -101,4 +106,19 @@ export function initLiveData(callback) {
   // JsonUpdate();
   // setInterval(JsonUpdate, 500);
   wsConnect();
+}
+
+const switchboardStatus = {
+  'on-air': 'ON-AIR',
+  'off-air': 'OFF-AIR',
+  'unknown': 'UNKNOWN'
+}
+
+function renderSwitchboardStatus(data) {
+  let slotSelector = document.querySelector('#mastercontrol #group-' + data.group + ' h2 span');
+
+  if (slotSelector.className !== switchboardStatus[data.switchboard]) {
+    slotSelector.className = switchboardStatus[data.switchboard];
+  }
+
 }

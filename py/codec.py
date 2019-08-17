@@ -38,7 +38,7 @@ class Codec:
         req.add_header('authorization','Basic {}'.format(self.auth_token()))
         try:
             resp = urllib.request.urlopen(req, timeout=1)
-            # resp = urllib.request.urlopen(req)
+
             if resp.getcode() == 200:
                 return json.loads(resp.read())
         except:
