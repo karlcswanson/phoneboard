@@ -1,0 +1,96 @@
+{
+  "port": 8080,
+  "switchboard_port": 8081,
+  "twilio": {
+    "account_sid": "",
+    "auth_token": "",
+    "webrtc_sid": ""
+  },
+  "groups": [
+    {
+      "group": 1,
+      "slots": [1, 2, 3, 4],
+      "title": "Live Sites",
+      "DID": "__DID__GOES__HERE__",
+      "ivr_audio": "MP3_URL"
+    },
+    {
+      "group": 2,
+      "slots": [5, 6, 7, 8],
+      "title": "Delayed Sites",
+      "DID": "__DID__GOES__HERE__",
+      "ivr_audio": "MP3_URL"
+    }
+
+  ],
+  "codecs": [
+    {
+      "ip": "",
+      "channels" : [
+        {
+          "name": "Spanish Live",
+          "slot": 1,
+          "channel": "left",
+          "uri": "1"
+        },
+        {
+          "name": "Chinese Live",
+          "slot": 2,
+          "channel": "right",
+          "uri": "1"
+        }
+      ]
+    },
+    {
+      "ip": "",
+      "channels" : [
+        {
+          "name": "Korean Live",
+          "slot": 3,
+          "channel": "left",
+          "uri": "1"
+        },
+        {
+          "name": "French Live",
+          "slot": 4,
+          "channel": "right",
+          "uri": "1"
+        }
+      ]
+    },
+    {
+      "ip": "",
+      "channels" : [
+        {
+          "name": "Spanish Delayed",
+          "slot": 5,
+          "channel": "left",
+          "uri": "1"
+        },
+        {
+          "name": "Chinese Delayed",
+          "slot": 6,
+          "channel": "right",
+          "uri": "1"
+        }
+      ]
+    },
+    {
+      "ip": "",
+      "channels" : [
+        {
+          "name": "Korean Delayed",
+          "slot": 7,
+          "channel": "left",
+          "uri": "1"
+        },
+        {
+          "name": "French Delayed",
+          "slot": 8,
+          "channel": "right",
+          "uri": "1"
+        }
+      ]
+    }
+  ]
+}
