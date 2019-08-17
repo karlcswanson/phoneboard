@@ -48,20 +48,29 @@ There are additional manual controls for phoneboard.  These are availible for te
 Switchboard is a separate web server that serves TwiML for Twilio.  The Twilio service submits data to switchboard via a POST request.  TwiML supplied by Switchboard directs Twilio on how to route calls from the JK Audio codecs and phone calls to the DID numbers.
 
 ## Installation
+Install git, python3-pip, and Node.js
+
+```
+$ sudo apt-get update
+$ sudo apt-get install git python3-pip
+$ curl -sL https://deb.nodesource.com/setup_10.x | sudo -E bash -
+$ sudo apt-get install nodejs
+```
+
 Download phoneboard from github
 ```
-git clone https://github.com/karlcswanson/phoneboard.git
-cd phoneboard/
+$ git clone https://github.com/karlcswanson/phoneboard.git
+$ cd phoneboard/
 ```
 
 Install dependencies via npm & pip
 ```
-npm install
-pip3 install -r py/requirements.txt
+$ npm install
+$ pip3 install -r py/requirements.txt
 ```
 
 build and run phoneboard
 ```
-npm run build
-npm run server
+$ npm run build
+$ npm run server
 ```
