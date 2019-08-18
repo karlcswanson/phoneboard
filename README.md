@@ -33,7 +33,7 @@ There are additional manual controls for phoneboard.  These are available for te
 * **call** - Set codec to dial.
 * **drop** - set codec to drop call.
 
-Clicking `codec` opens the codec management page. 
+Clicking `codec` opens the codec management page.
 
 ##### Twilio Controls
 * **close** - Close conference via Twilio API.
