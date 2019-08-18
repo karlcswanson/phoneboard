@@ -8,7 +8,7 @@ Phoneboard manages Twilio hosted conference calls and JK Audio AutoHybrid IP2 de
 </p>
 
 
-## Controlling Phoneboard
+## Phoneboard Control
 ![phoneboard control](docs/img/controls.png)
 
 <kbd>l</kbd> brings up the main controls for phoneboard.  Groups of codecs and calls can be controlled with OFF-AIR, Queue, and ON-AIR.
@@ -82,3 +82,15 @@ build and run phoneboard
 $ npm run build
 $ npm run server
 ```
+
+Edit User and WorkingDirectory within the systemd service files to match your installation and install it as a service.
+```
+$ sudo cp switchboard.service /etc/systemd/system/
+$ sudo cp phoneboard.service /etc/systemd/system/
+$ sudo systemctl start switchboard.service
+$ sudo systemctl start phoneboard.service
+$ sudo systemctl enable switchboard.service
+$ sudo systemctl enable phoneboard.service
+```
+
+Configure nginx
