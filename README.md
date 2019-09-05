@@ -1,5 +1,5 @@
 # Phoneboard
-Phoneboard is a dashboard for Twilio conference rooms and JK Audio AutoHybrid IP2 devices.
+Phoneboard manages Twilio conference rooms and JK Audio AutoHybrid IP2 devices.  This dashboard software was developed for the Global Leadership Network to provide live translation to GLS satellite sites.
 
 
 ## Screenshots
