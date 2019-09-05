@@ -1,5 +1,5 @@
 # Phoneboard
-Phoneboard manages Twilio hosted conference calls and JK Audio AutoHybrid IP2 devices.
+Phoneboard is a dashboard for Twilio conference rooms and JK Audio AutoHybrid IP2 devices.
 
 
 ## Screenshots
