@@ -1,14 +1,14 @@
 # Phoneboard
-Phoneboard manages Twilio hosted conference calls and JK Audio AutoHybrid IP2 devices.
+Phoneboard manages Twilio conference rooms and JK Audio AutoHybrid IP2 devices.  This dashboard software was developed for the Global Leadership Network to provide live translation to GLS satellite sites.
 
 
 ## Screenshots
-|                    Desktop                     |                  Mobile                  |
-|:----------------------------------------------:|:----------------------------------------:|
-| ![phoneboard desktop](docs/img/phoneboard.png) | ![phoneboard mobile](docs/img/phone.png) |
+<p align="center">
+  <img width="75%" src="docs/img/phoneboard.png"><img width="25%" src="docs/img/phone.png">
+</p>
 
 
-## Controlling Phoneboard
+## Phoneboard Control
 ![phoneboard control](docs/img/controls.png)
 
 <kbd>l</kbd> brings up the main controls for phoneboard.  Groups of codecs and calls can be controlled with OFF-AIR, Queue, and ON-AIR.
@@ -18,7 +18,7 @@ Phoneboard manages Twilio hosted conference calls and JK Audio AutoHybrid IP2 de
 * **ON-AIR** - Set all channels to ON-AIR.  If disconnected, codecs will redial.
 
 ### Manual Controls
-There are additional manual controls for phoneboard.  These are availible for testing individual codec and Twilio API functions.  These can be accessed by pressing <kbd>e</kbd>.
+There are additional manual controls for phoneboard.  These are available for testing individual codec and Twilio API functions.  These can be accessed by pressing <kbd>e</kbd>.
 
 <p align="center">
   <img height="300px" src="docs/img/manual_controls.png">
@@ -33,16 +33,24 @@ There are additional manual controls for phoneboard.  These are availible for te
 * **call** - Set codec to dial.
 * **drop** - set codec to drop call.
 
+Clicking `codec` opens the codec management page.
+
 ##### Twilio Controls
 * **close** - Close conference via Twilio API.
 
 ## Keyboard Shortcuts
 * <kbd>esc</kbd> - Reload
 * <kbd>1</kbd>...<kbd>8</kbd> - Monitor conference channel
+* <kbd>0</kbd> - End all WebRTC calls
 * <kbd>c</kbd> - Toggle clocks
 * <kbd>e</kbd> - Toggle manual controls
 * <kbd>f</kbd> - Toggle fullscreen
 * <kbd>l</kbd> - Toggle mastercontrol
+
+## Call Monitoring
+Using the Twilio WebRTC API, calls can be monitored within phoneboard.  Pressing <kbd>1</kbd>...<kbd>8</kbd> or clicking on the ON-AIR text will dial into the corresponding conference.  🎷 indicates a current WebRTC call.
+
+On mobile devices, clicking **Live** and **Delay** dials the conference line for monitoring.
 
 ## Switchboard
 Switchboard is a separate web server that serves TwiML for Twilio.  The Twilio service submits data to switchboard via a POST request.  TwiML supplied by Switchboard directs Twilio on how to route calls from the JK Audio codecs and phone calls to the DID numbers.
@@ -74,3 +82,15 @@ build and run phoneboard
 $ npm run build
 $ npm run server
 ```
+
+Edit User and WorkingDirectory within the systemd service files to match your installation and install it as a service.
+```
+$ sudo cp switchboard.service /etc/systemd/system/
+$ sudo cp phoneboard.service /etc/systemd/system/
+$ sudo systemctl start switchboard.service
+$ sudo systemctl start phoneboard.service
+$ sudo systemctl enable switchboard.service
+$ sudo systemctl enable phoneboard.service
+```
+
+Configure nginx
